@@ -15,8 +15,7 @@ function ArrowIcon() {
   );
 }
 
-
-function FooterItem({ link, title }: {link: string, title: string}) {
+function FooterItem({ link, title }: { link: string; title: string }) {
   return (
     <a
       className="flex items-center transition-all hover:text-neutral-800 dark:hover:text-neutral-100"
@@ -38,7 +37,10 @@ function Footer() {
           <FooterItem link="https://github.com/geniungamartya" title="github" />
         </li>
         <li>
-          <FooterItem link="https://www.linkedin.com/in/geniung-rizki-amartya/" title="linkedin" />
+          <FooterItem
+            link="https://www.linkedin.com/in/geniung-rizki-amartya/"
+            title="linkedin"
+          />
         </li>
       </ul>
     </footer>
