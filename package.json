@@ -6,10 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "format": "npx prettier . --write"
   },
   "dependencies": {
     "geist": "^1.3.0",
+    "gray-matter": "^4.0.3",
     "next": "14.2.3",
     "next-mdx-remote": "^4.4.1",
     "react": "^18",
