@@ -14,8 +14,8 @@ export default function Home() {
         and play sport.
       </p>
       <p className="mb-4">
-        Feel free to reach out for collaboration opportunities. Let's connect
-        and create something remarkable together!
+        Feel free to reach out for collaboration opportunities. Let&apos;s
+        connect and create something remarkable together!
       </p>
     </section>
   );

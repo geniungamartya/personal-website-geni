@@ -1,19 +1,18 @@
 import fs from "fs";
 import path from "path";
-import { MDXRemote } from "next-mdx-remote/rsc";
 import matter from "gray-matter";
+import { CustomMDX } from "@/app/components/mdx";
 
 const postsDirectory = "./app/blog/posts";
 
-export function getPostSlugs() {
+function getPostSlugs() {
   return fs
     .readdirSync(postsDirectory)
     .map((filename) => filename.replace(/\.mdx?$/, ""));
 }
 
-export async function getPostData(slug: unknown) {
+async function getPostData(slug: string) {
   const filePath = path.join(postsDirectory, `${slug}.mdx`);
-  console.log(filePath)
   const fileContents = fs.readFileSync(filePath, "utf8");
   const { content, data } = matter(fileContents);
 
@@ -26,18 +25,26 @@ export async function getPostData(slug: unknown) {
 // Generates static pages for all slugs during the build
 export async function generateStaticParams() {
   const slugs = getPostSlugs();
-  console.log(slugs.map((slug) => ({ slug })))
   return slugs.map((slug) => ({ slug }));
 }
 
-export default async function PostPage({ params }: {params: any}) {
+export default async function PostPage({ params }: { params: any }) {
   const { slug } = params;
   const { content, frontMatter } = await getPostData(slug);
 
   return (
     <div>
-      <h1>{frontMatter.title}</h1>
-      <MDXRemote source={content} />
+      <h1 className="title font-semibold text-2xl tracking-tighter">
+        {frontMatter.title}
+      </h1>
+      <div className="flex justify-between items-center mt-2 mb-8 text-sm">
+        <p className="text-sm text-neutral-600 dark:text-neutral-400">
+          {frontMatter.date}
+        </p>
+      </div>
+      <article className="prose">
+        <CustomMDX source={content} />
+      </article>
     </div>
   );
 }
