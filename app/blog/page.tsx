@@ -3,7 +3,18 @@ import path from "path";
 import matter from "gray-matter";
 import Link from "next/link";
 
-async function getPosts() {
+interface FrontMatter {
+  title: string;
+  date: string;
+  [key: string]: any;
+}
+
+interface Post {
+  data: FrontMatter;
+  slug: string;
+}
+
+async function getPosts(): Promise<Post[]> {
   const postsDirectory = "./app/blog/posts";
   const filenames = fs.readdirSync(postsDirectory);
   const posts = filenames.map((filename) => {
@@ -12,9 +23,16 @@ async function getPosts() {
     const { data } = matter(fileContents);
 
     return {
-      data: data,
+      data: data as FrontMatter,
       slug: filename.replace(/\.mdx?$/, ""),
     };
+  });
+
+  // Sort posts by date (newest first)
+  posts.sort((a, b) => {
+    const dateA = new Date(a.data.date);
+    const dateB = new Date(b.data.date);
+    return dateB.getTime() - dateA.getTime();
   });
 
   return posts;

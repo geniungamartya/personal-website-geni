@@ -2,7 +2,7 @@ import React from "react";
 import { highlight } from "sugar-high";
 import { MDXRemote } from "next-mdx-remote/rsc";
 
-function slugify(str: string) {
+function slugify(str: string): string {
   return str
     .toString()
     .toLowerCase()
@@ -13,18 +13,29 @@ function slugify(str: string) {
     .replace(/\-\-+/g, "-"); // Replace multiple - with single -
 }
 
-function Code({ children, ...props }: { children: any; [key: string]: any }) {
+interface CodeProps extends React.HTMLAttributes<HTMLElement> {
+  children: string;
+}
+
+function Code({ children, ...props }: CodeProps): JSX.Element {
   let codeHTML = highlight(children);
   return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />;
 }
 
-function Table({ data }: { data: any }) {
-  let headers = data.headers.map((header: any, index: any) => (
+interface TableProps {
+  data: {
+    headers: string[];
+    rows: string[][];
+  };
+}
+
+function Table({ data }: TableProps): JSX.Element {
+  let headers = data.headers.map((header, index) => (
     <th key={index}>{header}</th>
   ));
-  let rows = data.rows.map((row: any, index: any) => (
+  let rows = data.rows.map((row, index) => (
     <tr key={index}>
-      {row.map((cell: any, cellIndex: any) => (
+      {row.map((cell, cellIndex) => (
         <td key={cellIndex}>{cell}</td>
       ))}
     </tr>
@@ -40,8 +51,8 @@ function Table({ data }: { data: any }) {
   );
 }
 
-function createHeading(level: unknown) {
-  const Heading = ({ children }: { children: any }) => {
+function createHeading(level: number) {
+  const Heading = ({ children }: { children: string }): JSX.Element => {
     let slug = slugify(children);
     return React.createElement(
       `h${level}`,
@@ -62,7 +73,7 @@ function createHeading(level: unknown) {
   return Heading;
 }
 
-let components: any = {
+const components = {
   h1: createHeading(1),
   h2: createHeading(2),
   h3: createHeading(3),
@@ -73,6 +84,6 @@ let components: any = {
   Table,
 };
 
-export function CustomMDX(props: any) {
-  return <MDXRemote {...props} components={{ ...components }} />;
+export function CustomMDX(props: any): JSX.Element {
+  return <MDXRemote {...props} components={components} />;
 }
