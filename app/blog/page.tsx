@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import Link from "next/link";
+import { formatDateString } from "../utils";
 
 interface FrontMatter {
   title: string;
@@ -46,16 +47,13 @@ export default async function HomePage() {
       {/* <h1>My Blog</h1> */}
       <ul>
         {posts.map((post) => (
-          <li key={post.slug}>
-            <Link
-              href={`/blog/${post.slug}`}
-              className="flex flex-col space-y-1 mb-4"
-            >
-              <div className="w-full flex flex-col md:flex-row space-x-0 md:space-x-2">
-                <p className="text-neutral-600 dark:text-neutral-400 w-[100px] tabular-nums">
-                  {post.data.date}
+          <li key={post.slug} className="mb-4">
+            <Link href={`/blog/${post.slug}`}>
+              <div className="w-full flex flex-col md:flex-row md:items-center space-x-0 md:space-x-2">
+                <p className="text-neutral-600 dark:text-neutral-400 min-w-[140px] tabular-nums">
+                  {formatDateString(post.data.date)}
                 </p>
-                <p className="text-neutral-900 dark:text-neutral-100 tracking-tight">
+                <p className="text-neutral-900 dark:text-neutral-100 tracking-tight flex-grow">
                   {post.data.title}
                 </p>
               </div>
