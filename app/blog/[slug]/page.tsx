@@ -3,6 +3,8 @@ import path from "path";
 import matter from "gray-matter";
 import { CustomMDX } from "@/app/components/mdx";
 import { formatDateString } from "@/app/utils";
+import { Metadata, ResolvingMetadata } from "next";
+import { notFound } from "next/navigation";
 
 const postsDirectory = "./app/blog/posts";
 
@@ -23,8 +25,11 @@ function getPostSlugs(): string[] {
     .map((filename) => filename.replace(/\.mdx?$/, ""));
 }
 
-async function getPostData(slug: string): Promise<PostData> {
+async function getPostData(slug: string): Promise<PostData | null> {
   const filePath = path.join(postsDirectory, `${slug}.mdx`);
+  if (!fs.existsSync(filePath)) {
+    return null;
+  }
   const fileContents = fs.readFileSync(filePath, "utf8");
   const { content, data } = matter(fileContents);
 
@@ -41,14 +46,33 @@ export async function generateStaticParams() {
 }
 
 interface PostPageProps {
-  params: {
-    slug: string;
+  params: { slug: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+}
+
+export async function generateMetadata(
+  { params, searchParams }: PostPageProps,
+  parent: ResolvingMetadata,
+): Promise<Metadata | null> {
+  const { slug } = params;
+  const postData = await getPostData(slug);
+  if (!postData) {
+    return notFound();
+  }
+  const { frontMatter } = postData;
+
+  return {
+    title: frontMatter.title,
   };
 }
 
 export default async function PostPage({ params }: PostPageProps) {
   const { slug } = params;
-  const { content, frontMatter } = await getPostData(slug);
+  const postData = await getPostData(slug);
+  if (!postData) {
+    notFound();
+  }
+  const { content, frontMatter } = postData;
 
   return (
     <div>

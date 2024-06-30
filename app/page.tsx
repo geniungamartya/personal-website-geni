@@ -1,8 +1,3 @@
-export const metadata = {
-  title: "Geniung Amartya",
-  description: "Geniung Amartya's personal homepage",
-};
-
 export default function Home() {
   return (
     <section>
