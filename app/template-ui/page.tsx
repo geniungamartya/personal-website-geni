@@ -227,6 +227,38 @@ export default async function Page() {
             </div>
           </div>
         </li>
+        <li className="mb-4 flex flex-col">
+          <h6 className="font-semibold px-2 py-3">Accordion</h6>
+          <div>
+            <div className="collapse collapse-plus bg-base-200">
+              <input type="radio" name="my-accordion-3" defaultChecked />
+              <div className="collapse-title text-xl font-medium">
+                Click to open this one and close others
+              </div>
+              <div className="collapse-content">
+                <p>hello</p>
+              </div>
+            </div>
+            <div className="collapse collapse-plus bg-base-200">
+              <input type="radio" name="my-accordion-3" />
+              <div className="collapse-title text-xl font-medium">
+                Click to open this one and close others
+              </div>
+              <div className="collapse-content">
+                <p>hello</p>
+              </div>
+            </div>
+            <div className="collapse collapse-plus bg-base-200">
+              <input type="radio" name="my-accordion-3" />
+              <div className="collapse-title text-xl font-medium">
+                Click to open this one and close others
+              </div>
+              <div className="collapse-content">
+                <p>hello</p>
+              </div>
+            </div>
+          </div>
+        </li>
       </ul>
     </div>
   );
