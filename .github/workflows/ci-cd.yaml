@@ -1,0 +1,69 @@
+name: CI/CD Pipeline on VPS
+
+# triggers ci cd when you push code to any branch
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main    
+
+jobs:
+  CI:
+    name: Run Automated Test and Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # install nodejs
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'
+
+      # install dependencies
+      - name: Install Dependencies
+        run: npm install
+
+      # run linters
+      - name: Run Linters
+        run: npm run lint
+
+      # run formater
+      - name: Run Formater
+        run: npm run format
+
+      # run unittests
+      - name: Run Unit Tests
+        run: npm run test:unit
+
+      # build docker image for ci cd pipeline
+      - name: Build Docker Image
+        run: npm run docker:build        
+
+  CD:
+    name: Build & Deploy to VPS
+    # this job will run only when the CI job is successfull
+    needs: CI
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Deploy to VPS
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_KEY }}
+          script: |
+            cd personal-website-geni/
+            git pull
+            docker compose build
+            docker compose up -d
