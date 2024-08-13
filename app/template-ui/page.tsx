@@ -15,10 +15,10 @@ const navItems = {
 export default async function Page() {
   return (
     <div>
-      <ul>
-        <li className="mb-4 flex flex-col">
+      <ul className="space-y-8">
+        <li className="flex flex-col">
           <h6 className="font-semibold px-2 py-3">Button</h6>
-          <div className="mb-2">
+          <div>
             <button
               type="button"
               className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
@@ -79,7 +79,7 @@ export default async function Page() {
             </div>
           </div>
         </li>
-        <li className="mb-4 flex flex-col">
+        <li className="flex flex-col">
           <h6 className="font-semibold px-2 py-3">Card</h6>
           <div>
             <div className="border rounded-xl shadow-sm p-6 dark:bg-neutral-800 dark:border-neutral-700">
@@ -127,7 +127,7 @@ export default async function Page() {
             </div>
           </div>
         </li>
-        <li className="mb-4 flex flex-col">
+        <li className="flex flex-col">
           <h6 className="font-semibold px-2 py-3">Chat Bubble</h6>
           <div>
             <ul className="space-y-5">
@@ -199,7 +199,7 @@ export default async function Page() {
             </ul>
           </div>
         </li>
-        <li className="mb-4 flex flex-col">
+        <li className="flex flex-col">
           <h6 className="font-semibold px-2 py-3">Spinner</h6>
           <div>
             <div
@@ -227,9 +227,9 @@ export default async function Page() {
             </div>
           </div>
         </li>
-        <li className="mb-4 flex flex-col">
+        <li className="flex flex-col">
           <h6 className="font-semibold px-2 py-3">Accordion</h6>
-          <div>
+          <div className="space-y-2">
             <div className="collapse collapse-plus bg-base-200">
               <input type="radio" name="my-accordion-3" defaultChecked />
               <div className="collapse-title text-xl font-medium">
