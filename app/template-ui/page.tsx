@@ -17,7 +17,7 @@ export default async function Page() {
     <div>
       <ul className="space-y-8">
         <li className="flex flex-col">
-          <h6 className="font-semibold px-2 py-3">Button</h6>
+          <h6 className="font-semibold px-2 py-3">Button'</h6>
           <div>
             <button
               type="button"
