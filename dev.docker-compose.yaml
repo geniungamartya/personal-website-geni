@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+  geni-personal-website:
+    build: .
+    image: gn/personal-website
+    platform: linux/amd64
+    container_name: geni-personal-website
+    # environment:
+    #   - NODE_ENV=production
+    # volumes:
+    #   - .:/app
+    #   - /app/node_modules
+    # ports:
+    #   - "3000:3000"
+    # command: npm start
+
+  nginx-personal-website:
+    image: nginx:alpine
+    platform: linux/amd64
+    container_name: nginx-personal-website
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - geni-personal-website
