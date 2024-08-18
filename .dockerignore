@@ -14,3 +14,7 @@ README.md
 
 # Other Folders
 misc
+
+# Nginx
+conf/nginx/cert/*
+!conf/nginx/cert/.gitkeep

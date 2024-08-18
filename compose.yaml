@@ -14,3 +14,16 @@ services:
     ports:
       - "3000:3000"
     # command: npm start
+
+  nginx-personal-website:
+    image: nginx:alpine
+    platform: linux/amd64
+    container_name: nginx-personal-website
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./conf/nginx/prod.nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./conf/nginx/cert/:/etc/ssl/:ro
+    depends_on:
+      - geni-personal-website
