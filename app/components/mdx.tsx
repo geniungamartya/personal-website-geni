@@ -22,35 +22,6 @@ function Code({ children, ...props }: CodeProps): JSX.Element {
   return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />;
 }
 
-interface TableProps {
-  data: {
-    headers: string[];
-    rows: string[][];
-  };
-}
-
-function Table({ data }: TableProps): JSX.Element {
-  let headers = data.headers.map((header, index) => (
-    <th key={index}>{header}</th>
-  ));
-  let rows = data.rows.map((row, index) => (
-    <tr key={index}>
-      {row.map((cell, cellIndex) => (
-        <td key={cellIndex}>{cell}</td>
-      ))}
-    </tr>
-  ));
-
-  return (
-    <table>
-      <thead>
-        <tr>{headers}</tr>
-      </thead>
-      <tbody>{rows}</tbody>
-    </table>
-  );
-}
-
 function createHeading(level: number) {
   const Heading = ({ children }: { children: string }): JSX.Element => {
     let slug = slugify(children);
@@ -81,7 +52,6 @@ const components = {
   h5: createHeading(5),
   h6: createHeading(6),
   code: Code,
-  Table,
 };
 
 export function CustomMDX(props: any): JSX.Element {
