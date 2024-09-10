@@ -7,8 +7,8 @@ const navItems = {
   "/blog": {
     name: "blog",
   },
-  "/template-ui": {
-    name: "template ui",
+  "/playground": {
+    name: "playground",
   },
 };
 
