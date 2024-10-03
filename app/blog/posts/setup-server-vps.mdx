@@ -1,0 +1,133 @@
+---
+title: "Cheatsheet - Setup Linux VPS"
+date: "2024-10-03"
+---
+
+## Update Ubuntu
+
+```bash
+sudo apt update && sudo apt upgrade -y
+```
+
+## Add a New User (You will be prompted for a password)
+
+```bash
+sudo adduser yourusername
+```
+
+## Grant Root Access to the New User
+
+```bash
+sudo usermod -aG sudo yourusername
+```
+
+## Switch to the New User
+
+```bash
+su - yourusername
+```
+
+## Configure UFW (Firewall)
+
+Allow SSH on port 22 and enable UFW:
+
+```bash
+sudo ufw allow 22/tcp
+sudo ufw enable
+sudo ufw status
+```
+
+## Set Up SSH Access
+
+1. Create the `.ssh` directory:
+
+   ```bash
+   mkdir ~/.ssh
+   chmod 700 ~/.ssh
+   ```
+
+2. Add your SSH public key:
+
+   ```bash
+   nano ~/.ssh/authorized_keys
+   ```
+
+3. Set appropriate permissions:
+   ```bash
+   chmod 600 ~/.ssh/authorized_keys
+   ```
+
+## Configure SSH for Keep-Alive and Security
+
+Edit the SSH server config:
+
+```bash
+sudo nano /etc/ssh/sshd_config
+```
+
+At the end of the file, add or modify the following lines:
+
+- **Keep SSH Connections Alive**:
+
+  ```bash
+  ClientAliveInterval 120
+  ClientAliveCountMax 720
+  ```
+
+- **Allow or Deny Root Login** (set to `yes` if you need root login, otherwise `no` for security):
+
+  ```bash
+  PermitRootLogin yes
+  ```
+
+- **Disable Password Authentication** (if using SSH keys only):
+  ```bash
+  PasswordAuthentication no
+  ```
+
+After editing, save the file and restart the SSH service:
+
+```bash
+sudo systemctl restart ssh
+```
+
+## Enable and Configure Swap
+
+### 1. Check Existing Swap Information
+
+```bash
+sudo swapon --show
+free -h
+df -h
+```
+
+### 2. Create a Swap File (1 GB example)
+
+```bash
+sudo fallocate -l 1G /swapfile
+ls -lh /swapfile
+```
+
+### 3. Enable the Swap File
+
+```bash
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+sudo swapon --show
+```
+
+### 4. Verify Swap Usage
+
+```bash
+free -h
+```
+
+### 5. Make the Swap File Permanent
+
+```bash
+sudo cp /etc/fstab /etc/fstab.bak
+echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
+```
+
+This ensures that the swap file persists across reboots.
