@@ -2,7 +2,7 @@ import React from "react";
 import { highlight } from "sugar-high";
 import { MDXRemote } from "next-mdx-remote/rsc";
 
-function slugify(str: string): string {
+export function slugify(str: string): string {
   return str
     .toString()
     .toLowerCase()
@@ -17,12 +17,12 @@ interface CodeProps extends React.HTMLAttributes<HTMLElement> {
   children: string;
 }
 
-function Code({ children, ...props }: CodeProps): JSX.Element {
+export function Code({ children, ...props }: CodeProps): JSX.Element {
   let codeHTML = highlight(children);
   return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />;
 }
 
-function createHeading(level: number) {
+export function createHeading(level: number) {
   const Heading = ({ children }: { children: string }): JSX.Element => {
     let slug = slugify(children);
     return React.createElement(
