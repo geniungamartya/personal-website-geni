@@ -4,7 +4,6 @@ import "@testing-library/jest-dom";
 import { CustomMDX, slugify, Code, createHeading } from "./mdx";
 import { highlight } from "sugar-high";
 import React from "react";
-import { MDXRemote } from "next-mdx-remote/rsc";
 
 describe("slugify function", () => {
   it("should correctly slugify strings", () => {
@@ -61,7 +60,6 @@ describe("createHeading function", () => {
 describe("CustomMDX component", () => {
   it("should render MDXRemote with the provided components", () => {
     const { debug } = render(<CustomMDX source="Some MDX content" />);
-    debug();
 
     const mdxContent = screen.getByText("MDX content with components");
     expect(mdxContent).toBeInTheDocument();
