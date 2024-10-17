@@ -3,8 +3,10 @@ import fs from "fs";
 import matter from "gray-matter";
 import {
   FrontMatter,
+  getAllPosts,
   getPostData,
   getPostSlugs,
+  PostData,
 } from "@/app/service/blogService";
 
 vi.mock("fs");
@@ -24,7 +26,7 @@ describe("getPostSlugs", () => {
 });
 
 describe("getPostData", () => {
-  it("should return post content and front matter when file exists", async () => {
+  it("should return post data", () => {
     const mockContent = "Post Content";
     const mockData: FrontMatter = { title: "Post Title", date: "2023-10-10" };
     const mockMatterResult = {
@@ -43,6 +45,7 @@ describe("getPostData", () => {
     expect(result).toEqual({
       content: mockContent,
       frontMatter: mockData,
+      slug: "post-1",
     });
   });
 
@@ -53,5 +56,46 @@ describe("getPostData", () => {
     expect(fs.existsSync).toHaveBeenCalledWith(
       "app/blog/posts/non-existent-post.mdx",
     );
+  });
+});
+
+describe("getAllPosts", () => {
+  it("should return a list of all posts sorted by date (newest first)", () => {
+    const data = [
+      {
+        content: "Content 1",
+        data: { title: "Post 1", date: "2023-01-01" },
+        slug: "post1",
+      },
+      {
+        content: "Content 2",
+        data: { title: "Post 2", date: "2024-01-01" },
+        slug: "post2",
+      },
+    ];
+
+    // Mocking getPostSlugs and getPostData
+    vi.mocked(fs.existsSync)
+      .mockReturnValueOnce(true)
+      .mockReturnValueOnce(true)
+      .mockReturnValueOnce(false);
+    vi.mocked(matter)
+      .mockReturnValueOnce(data[0] as any)
+      .mockReturnValueOnce(data[1] as any);
+
+    const allPosts = getAllPosts();
+
+    const expected = expect(allPosts).toEqual([
+      {
+        content: "Content 2",
+        frontMatter: { title: "Post 2", date: "2024-01-01" },
+        slug: "post2",
+      },
+      {
+        content: "Content 1",
+        frontMatter: { title: "Post 1", date: "2023-01-01" },
+        slug: "post1",
+      },
+    ]); // Sorted by date
   });
 });

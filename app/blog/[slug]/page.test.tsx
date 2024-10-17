@@ -33,6 +33,7 @@ describe("PostPage component", () => {
         title: "Test Post",
         date: "2024-10-13",
       },
+      slug: "test",
     };
     vi.mocked(getPostData).mockReturnValue(mockPostData);
 

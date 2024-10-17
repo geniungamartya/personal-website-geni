@@ -76,6 +76,7 @@ describe("Blog Post componentn", () => {
     const postData: PostData = {
       content: "Mock Content",
       frontMatter: { title: "Mock Title", date: "2024-06-30" },
+      slug: "mock slug",
     };
     const { debug } = render(<BlogPost {...postData} />);
     expect(screen.getByText("Mock Title")).toBeInTheDocument();

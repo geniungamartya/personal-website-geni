@@ -7,12 +7,12 @@ const postsDirectory = "./app/blog/posts";
 export interface FrontMatter {
   title: string;
   date: string;
-  [key: string]: any;
 }
 
 export interface PostData {
   content: string;
   frontMatter: FrontMatter;
+  slug: string;
 }
 
 export function getPostSlugs(): string[] {
@@ -32,5 +32,20 @@ export function getPostData(slug: string): PostData | null {
   return {
     content: content,
     frontMatter: data as FrontMatter,
+    slug: slug,
   };
+}
+
+export function getAllPosts(): PostData[] {
+  const slugs = getPostSlugs();
+  const posts = slugs
+    .map((slug) => getPostData(slug))
+    .filter(Boolean) as PostData[]; // Filter out any null values;
+
+  // Sort posts by date (newest first)
+  return posts.sort((a, b) => {
+    const dateA = new Date(a.frontMatter.date);
+    const dateB = new Date(b.frontMatter.date);
+    return dateB.getTime() - dateA.getTime();
+  });
 }
