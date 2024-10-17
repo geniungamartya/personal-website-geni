@@ -1,9 +1,11 @@
 import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import { CustomMDX, slugify, Code, createHeading } from "./mdx";
+import { CustomMDX, slugify, Code, createHeading, BlogPost } from "./mdx";
 import { highlight } from "sugar-high";
 import React from "react";
+import { PostData } from "../service/blogService";
+import { formatDateString } from "../utils";
 
 describe("slugify function", () => {
   it("should correctly slugify strings", () => {
@@ -66,5 +68,23 @@ describe("CustomMDX component", () => {
 
     // Assert MDXRemote was called with the correct arguments
     expect(mdxContent).toHaveAttribute("source", "Some MDX content");
+  });
+});
+
+describe("Blog Post componentn", () => {
+  it("should render post content and front matter correctly", () => {
+    const postData: PostData = {
+      content: "Mock Content",
+      frontMatter: { title: "Mock Title", date: "2024-06-30" },
+    };
+    const { debug } = render(<BlogPost {...postData} />);
+    expect(screen.getByText("Mock Title")).toBeInTheDocument();
+    expect(
+      screen.getByText(formatDateString("2024-06-30")),
+    ).toBeInTheDocument();
+    expect(screen.getByText("MDX content with components")).toHaveAttribute(
+      "source",
+      "Mock Content",
+    );
   });
 });

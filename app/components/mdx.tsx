@@ -1,6 +1,8 @@
 import React from "react";
 import { highlight } from "sugar-high";
 import { MDXRemote } from "next-mdx-remote/rsc";
+import { PostData } from "../service/blogService";
+import { formatDateString } from "../utils";
 
 export function slugify(str: string): string {
   return str
@@ -56,4 +58,22 @@ const components = {
 
 export function CustomMDX(props: any): JSX.Element {
   return <MDXRemote {...props} components={components} />;
+}
+
+export function BlogPost(post: PostData): JSX.Element {
+  const { content, frontMatter } = post;
+  const title = frontMatter.title;
+  const date = formatDateString(frontMatter.date);
+
+  return (
+    <div>
+      <h1 className="title font-semibold text-2xl tracking-tighter">{title}</h1>
+      <div className="flex justify-between items-center mt-2 mb-8 text-sm">
+        <p className="text-sm text-neutral-600 dark:text-neutral-400">{date}</p>
+      </div>
+      <article className="prose">
+        <CustomMDX source={content} />
+      </article>
+    </div>
+  );
 }
