@@ -19,7 +19,8 @@
   --sh-entity: #e25a1c;
 }
 
-@media (prefers-color-scheme: dark) {
+/* Dark Mode Code Highlighting */
+/* @media (prefers-color-scheme: dark) {
   :root {
     --sh-class: #4c97f8;
     --sh-identifier: white;
@@ -29,7 +30,7 @@
   html {
     color-scheme: dark;
   }
-}
+} */
 
 html {
   min-width: 360px;
@@ -50,7 +51,7 @@ html {
 }
 
 .prose a {
-  @apply underline transition-all decoration-neutral-400 dark:decoration-neutral-600 underline-offset-2 decoration-[0.1em];
+  @apply text-blue-600 hover:text-blue-800 underline underline-offset-2 decoration-[0.1em];
 }
 
 .prose .anchor:after {
@@ -115,6 +116,10 @@ html {
 
 .prose ol {
   @apply list-decimal pl-6;
+}
+
+.prose blockquote {
+  @apply border-l-4 pl-4 italic text-gray-700 dark:text-gray-300 border-gray-400 dark:border-gray-600;
 }
 
 .prose > :first-child {
