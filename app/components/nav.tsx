@@ -7,6 +7,9 @@ const navItems = {
   "/blog": {
     name: "blog",
   },
+  "/photo-video": {
+    name: "photo & video",
+  },
   "/playground": {
     name: "playground",
   },
