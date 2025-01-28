@@ -8,7 +8,6 @@ export const metadata: Metadata = {
   description: "Geniung Amartya's personal website",
 };
 
-
 export default function RootLayout({
   children,
 }: Readonly<{
