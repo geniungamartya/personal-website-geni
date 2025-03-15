@@ -67,5 +67,6 @@ jobs:
             git pull
             echo "${{ secrets.SSL_CERTIFICATE }}" > ./conf/nginx/cert/geniungamartya.xyz.pem
             echo "${{ secrets.SSL_CERTIFICATE_KEY }}" > ./conf/nginx/cert/geniungamartya.xyz.key
+            npm run build
             docker compose build
             docker compose up -d
