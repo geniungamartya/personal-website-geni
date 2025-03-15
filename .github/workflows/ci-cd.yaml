@@ -64,6 +64,7 @@ jobs:
           key: ${{ secrets.VPS_KEY }}
           script: |
             export NVM_DIR=$HOME/.nvm
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
             cd personal-website-geni/
             git pull
             echo "${{ secrets.SSL_CERTIFICATE }}" > ./conf/nginx/cert/geniungamartya.xyz.pem
