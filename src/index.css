@@ -1,0 +1,9 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+.wmde-markdown ol {
+  list-style: auto !important;
+}
+.wmde-markdown ul {
+  list-style: disc !important;
+}
