@@ -31,7 +31,7 @@ jobs:
 
       # run linters
       - name: Run Linters
-        run: npm run lint
+        run: npm run lint && npm run typecheck
 
       # run formater
       - name: Run Formater
