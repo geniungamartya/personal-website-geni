@@ -38,6 +38,8 @@ def scan_directory(input_dir: str, output_file: str):
 
     typer.echo(f"✅ Successfully saved {len(media_list)} posts to {output_file}")
 
+    return media_list
+
 
 if __name__ == "__main__":
     app()

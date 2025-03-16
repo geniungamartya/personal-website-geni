@@ -16,6 +16,7 @@
     "docker:build": "docker compose build",
     "docker:start": "docker compose up -d",
     "docker:stop": "docker compose down",
+    "docker:dev:build": "docker compose -f dev.docker-compose.yaml build",
     "docker:dev:start": "docker compose -f dev.docker-compose.yaml up -d",
     "docker:dev:stop": "docker compose -f dev.docker-compose.yaml down"
   },

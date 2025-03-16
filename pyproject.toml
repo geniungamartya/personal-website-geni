@@ -9,7 +9,9 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "python-frontmatter (>=1.1.0,<2.0.0)",
-    "typer (>=0.15.2,<0.16.0)"
+    "typer (>=0.15.2,<0.16.0)",
+    "minio (>=7.2.15,<8.0.0)",
+    "dotenv (>=0.9.9,<0.10.0)"
 ]
 
 

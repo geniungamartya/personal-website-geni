@@ -2,36 +2,36 @@
   {
     "data": [
       {
-        "src": "/photo-video/1/1.jpeg",
-        "thumb": "/photo-video/1/1.jpeg"
+        "src": "http://localhost:9000/photo-video/1/1.jpeg",
+        "thumb": "http://localhost:9000/photo-video/1/1.jpeg"
       },
       {
-        "src": "/photo-video/1/2.jpeg",
-        "thumb": "/photo-video/1/2.jpeg"
+        "src": "http://localhost:9000/photo-video/1/2.jpeg",
+        "thumb": "http://localhost:9000/photo-video/1/2.jpeg"
       },
       {
-        "src": "/photo-video/1/3.jpeg",
-        "thumb": "/photo-video/1/3.jpeg"
+        "src": "http://localhost:9000/photo-video/1/3.jpeg",
+        "thumb": "http://localhost:9000/photo-video/1/3.jpeg"
       }
     ]
   },
   {
     "data": [
       {
-        "src": "/photo-video/2/4.jpeg",
-        "thumb": "/photo-video/2/4.jpeg"
+        "src": "http://localhost:9000/photo-video/2/4.jpeg",
+        "thumb": "http://localhost:9000/photo-video/2/4.jpeg"
       },
       {
-        "src": "/photo-video/2/5.jpeg",
-        "thumb": "/photo-video/2/5.jpeg"
+        "src": "http://localhost:9000/photo-video/2/5.jpeg",
+        "thumb": "http://localhost:9000/photo-video/2/5.jpeg"
       },
       {
-        "src": "/photo-video/2/6.jpeg",
-        "thumb": "/photo-video/2/6.jpeg"
+        "src": "http://localhost:9000/photo-video/2/6.jpeg",
+        "thumb": "http://localhost:9000/photo-video/2/6.jpeg"
       },
       {
-        "src": "/photo-video/2/7.jpeg",
-        "thumb": "/photo-video/2/7.jpeg"
+        "src": "http://localhost:9000/photo-video/2/7.jpeg",
+        "thumb": "http://localhost:9000/photo-video/2/7.jpeg"
       }
     ]
   }
