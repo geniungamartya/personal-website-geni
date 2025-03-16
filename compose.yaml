@@ -14,7 +14,7 @@ services:
       - ./dist:/var/www/vite-app
 
   minio:
-    image: quay.io/minio/minio
+    image: quay.io/minio/minio:RELEASE.2025-03-12T18-04-18Z-cpuv1
     platform: linux/amd64
     container_name: minio
     ports:
