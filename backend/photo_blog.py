@@ -74,7 +74,7 @@ def generate_json(output_file: str, url_docker: str):
         file_url = minio_client.get_object_url(bucket_name, obj)
 
         if url_docker:
-            file_url = file_url.replace(os.getenv("MINIO_URL"), url_docker)
+            file_url = file_url.replace(f"http://{os.getenv("MINIO_URL")}", url_docker)
 
         media_list.setdefault(subdir, []).append({"src": file_url, "thumb": file_url})
 
