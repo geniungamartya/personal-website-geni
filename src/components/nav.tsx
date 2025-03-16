@@ -6,15 +6,12 @@ const navItems = {
   },
   "/blog": {
     name: "blog",
-    subItems: [
-      {
-        path: "/blog/editor",
-        name: "editor",
-      },
-    ],
   },
   "/playground": {
     name: "playground",
+  },
+  "/photo-video": {
+    name: "photo & video",
   },
 };
 

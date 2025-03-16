@@ -1,6 +1,5 @@
 Welcome to the Geni's Personal Website repo.
 
-
 ## Development
 
 First, run the development server:

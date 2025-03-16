@@ -12,8 +12,8 @@
 
 import { Route as rootRoute } from "./routes/__root";
 import { Route as PlaygroundImport } from "./routes/playground";
+import { Route as PhotoVideoImport } from "./routes/photo-video";
 import { Route as BlogImport } from "./routes/blog";
-import { Route as AboutImport } from "./routes/about";
 import { Route as IndexImport } from "./routes/index";
 import { Route as BlogIndexImport } from "./routes/blog.index";
 import { Route as BlogEditorImport } from "./routes/blog.editor";
@@ -27,15 +27,15 @@ const PlaygroundRoute = PlaygroundImport.update({
   getParentRoute: () => rootRoute,
 } as any);
 
-const BlogRoute = BlogImport.update({
-  id: "/blog",
-  path: "/blog",
+const PhotoVideoRoute = PhotoVideoImport.update({
+  id: "/photo-video",
+  path: "/photo-video",
   getParentRoute: () => rootRoute,
 } as any);
 
-const AboutRoute = AboutImport.update({
-  id: "/about",
-  path: "/about",
+const BlogRoute = BlogImport.update({
+  id: "/blog",
+  path: "/blog",
   getParentRoute: () => rootRoute,
 } as any);
 
@@ -74,18 +74,18 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof IndexImport;
       parentRoute: typeof rootRoute;
     };
-    "/about": {
-      id: "/about";
-      path: "/about";
-      fullPath: "/about";
-      preLoaderRoute: typeof AboutImport;
-      parentRoute: typeof rootRoute;
-    };
     "/blog": {
       id: "/blog";
       path: "/blog";
       fullPath: "/blog";
       preLoaderRoute: typeof BlogImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/photo-video": {
+      id: "/photo-video";
+      path: "/photo-video";
+      fullPath: "/photo-video";
+      preLoaderRoute: typeof PhotoVideoImport;
       parentRoute: typeof rootRoute;
     };
     "/playground": {
@@ -137,8 +137,8 @@ const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren);
 
 export interface FileRoutesByFullPath {
   "/": typeof IndexRoute;
-  "/about": typeof AboutRoute;
   "/blog": typeof BlogRouteWithChildren;
+  "/photo-video": typeof PhotoVideoRoute;
   "/playground": typeof PlaygroundRoute;
   "/blog/$slug": typeof BlogSlugRoute;
   "/blog/editor": typeof BlogEditorRoute;
@@ -147,7 +147,7 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
   "/": typeof IndexRoute;
-  "/about": typeof AboutRoute;
+  "/photo-video": typeof PhotoVideoRoute;
   "/playground": typeof PlaygroundRoute;
   "/blog/$slug": typeof BlogSlugRoute;
   "/blog/editor": typeof BlogEditorRoute;
@@ -157,8 +157,8 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRoute;
   "/": typeof IndexRoute;
-  "/about": typeof AboutRoute;
   "/blog": typeof BlogRouteWithChildren;
+  "/photo-video": typeof PhotoVideoRoute;
   "/playground": typeof PlaygroundRoute;
   "/blog/$slug": typeof BlogSlugRoute;
   "/blog/editor": typeof BlogEditorRoute;
@@ -169,19 +169,25 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath;
   fullPaths:
     | "/"
-    | "/about"
     | "/blog"
+    | "/photo-video"
     | "/playground"
     | "/blog/$slug"
     | "/blog/editor"
     | "/blog/";
   fileRoutesByTo: FileRoutesByTo;
-  to: "/" | "/about" | "/playground" | "/blog/$slug" | "/blog/editor" | "/blog";
+  to:
+    | "/"
+    | "/photo-video"
+    | "/playground"
+    | "/blog/$slug"
+    | "/blog/editor"
+    | "/blog";
   id:
     | "__root__"
     | "/"
-    | "/about"
     | "/blog"
+    | "/photo-video"
     | "/playground"
     | "/blog/$slug"
     | "/blog/editor"
@@ -191,15 +197,15 @@ export interface FileRouteTypes {
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute;
-  AboutRoute: typeof AboutRoute;
   BlogRoute: typeof BlogRouteWithChildren;
+  PhotoVideoRoute: typeof PhotoVideoRoute;
   PlaygroundRoute: typeof PlaygroundRoute;
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AboutRoute: AboutRoute,
   BlogRoute: BlogRouteWithChildren,
+  PhotoVideoRoute: PhotoVideoRoute,
   PlaygroundRoute: PlaygroundRoute,
 };
 
@@ -214,16 +220,13 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/about",
         "/blog",
+        "/photo-video",
         "/playground"
       ]
     },
     "/": {
       "filePath": "index.tsx"
-    },
-    "/about": {
-      "filePath": "about.tsx"
     },
     "/blog": {
       "filePath": "blog.tsx",
@@ -232,6 +235,9 @@ export const routeTree = rootRoute
         "/blog/editor",
         "/blog/"
       ]
+    },
+    "/photo-video": {
+      "filePath": "photo-video.tsx"
     },
     "/playground": {
       "filePath": "playground.tsx"

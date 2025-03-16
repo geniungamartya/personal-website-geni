@@ -7,3 +7,9 @@
 .wmde-markdown ul {
   list-style: disc !important;
 }
+
+/* @layer utilities {
+  .debug-dev * {
+    @apply border border-red-500;
+  }
+} */
