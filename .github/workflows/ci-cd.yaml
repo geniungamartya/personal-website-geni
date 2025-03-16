@@ -67,11 +67,8 @@ jobs:
             [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
             cd personal-website-geni/
             git pull
-            echo 'MINIO_ROOT_USER=${{ secrets.MINIO_ROOT_USER }}'
-            echo 'MINIO_ROOT_USER=${{ secrets.MINIO_ROOT_USER }}' >> .env
+            echo 'MINIO_ROOT_USER=${{ secrets.MINIO_ROOT_USER }}' > .env
             echo 'MINIO_ROOT_PASSWORD=${{ secrets.MINIO_ROOT_PASSWORD }}' >> .env
-            export MINIO_ROOT_USER='${{ secrets.MINIO_ROOT_USER }}'
-            export MINIO_ROOT_PASSWORD='${{ secrets.MINIO_ROOT_PASSWORD }}'
             echo "${{ secrets.SSL_CERTIFICATE }}" > ./conf/nginx/cert/geniungamartya.xyz.pem
             echo "${{ secrets.SSL_CERTIFICATE_KEY }}" > ./conf/nginx/cert/geniungamartya.xyz.key
             npm install
