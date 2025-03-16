@@ -28,7 +28,7 @@ services:
   nginx-minio:
     image: nginx:alpine
     platform: linux/amd64
-    container_name: nginx-personal-website
+    container_name: nginx-minio
     ports:
       - "80:80"
       - "443:443"
