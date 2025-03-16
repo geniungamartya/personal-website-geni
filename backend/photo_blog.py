@@ -62,7 +62,7 @@ def upload(input_dir: str):
 
 
 @app.command()
-def generate_json(output_file: str):
+def generate_json(output_file: str, url_docker: str):
     """
     Generate a JSON file containing MinIO file URLs in the desired structure.
     """
@@ -72,6 +72,9 @@ def generate_json(output_file: str):
     for obj in sorted(objects):
         subdir = Path(obj).parent.as_posix()  # Extract subdirectory
         file_url = minio_client.get_object_url(bucket_name, obj)
+
+        if url_docker:
+            file_url = file_url.replace(os.getenv("MINIO_URL"), url_docker)
 
         media_list.setdefault(subdir, []).append({"src": file_url, "thumb": file_url})
 
