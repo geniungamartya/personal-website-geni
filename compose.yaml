@@ -20,6 +20,8 @@ services:
     platform: linux/amd64
     container_name: minio
     env_file: .env
+    ports:
+      - "9000:9000"
     volumes:
       - ~/minio_data:/data
     command: server /data --console-address ":9001"
