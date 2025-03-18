@@ -22,5 +22,8 @@ build-backend = "poetry.core.masonry.api"
 [tool.poetry.requires-plugins]
 poetry-plugin-export = ">=1.8"
 
+[tool.poetry.group.dev.dependencies]
+ipykernel = "^6.29.5"
+
 [tool.ruff.lint]
 extend-select = ["I"]
