@@ -7,6 +7,7 @@ from pathlib import Path
 import typer
 from dotenv import load_dotenv
 from rich.progress import Progress
+
 from storage import MinioClient
 
 # Configure logging

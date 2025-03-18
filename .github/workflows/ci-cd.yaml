@@ -25,27 +25,25 @@ jobs:
         with:
           node-version: "18"
 
-      - name: Go to workdir
-        run: cd frontend
-
       # install dependencies
       - name: Install Dependencies
+        working-directory: frontend
         run: npm install
 
       # run linters
       - name: Run Linters
+        working-directory: frontend
         run: npm run lint && npm run typecheck
 
       # run formater
       - name: Run Formater
+        working-directory: frontend
         run: npm run format
 
       # run unittests
       - name: Run Unit Tests
+        working-directory: frontend
         run: npm run test:unit
-
-      - name: Go to root workdir
-        run: cd ../
 
       # build docker image for ci cd pipeline
       - name: Build Docker Image
