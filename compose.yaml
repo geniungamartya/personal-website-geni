@@ -29,7 +29,8 @@ services:
       # Store the Let's Encrypt certificates in the mounted volume
       - --certificatesresolvers.le.acme.storage=/certificates/acme.json
       # Use the TLS Challenge for Let's Encrypt
-      - --certificatesresolvers.le.acme.tlschallenge=true
+      - --certificatesresolvers.le.acme.httpchallenge.entrypoint=http
+      # - --certificatesresolvers.le.acme.tlschallenge=true
     ports:
       # The HTTP port
       - "80:80"
