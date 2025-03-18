@@ -154,4 +154,4 @@ services:
 
 volumes:
   # Create a volume to store the certificates, even if the container is recreated
-  traefik-public-certificates:
+  traefik-public-certificates: 
