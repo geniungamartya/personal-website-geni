@@ -146,12 +146,15 @@ services:
       # Enable redirection for HTTP and HTTPS
       - traefik.http.routers.console-storage-http.middlewares=https-redirect
       - traefik.docker.network=traefik-public
+    volumes:
+      - minio-data:/data
     networks:
       - traefik-public
 
 volumes:
   # Create a volume to store the certificates, even if the container is recreated
   traefik-public-certificates:
+  minio-data:
 
 networks:
   # Use the previously created public network "traefik-public", shared with other
