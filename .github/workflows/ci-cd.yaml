@@ -25,6 +25,9 @@ jobs:
         with:
           node-version: "18"
 
+      - name: Go to workdir
+        run: cd frontend
+
       # install dependencies
       - name: Install Dependencies
         run: npm install
@@ -41,9 +44,12 @@ jobs:
       - name: Run Unit Tests
         run: npm run test:unit
 
+      - name: Go to root workdir
+        run: cd ../
+
       # build docker image for ci cd pipeline
       - name: Build Docker Image
-        run: npm run docker:build
+        run: docker compose build
 
   CD:
     name: Build & Deploy to VPS
@@ -71,8 +77,10 @@ jobs:
             echo 'MINIO_ROOT_PASSWORD=${{ secrets.MINIO_ROOT_PASSWORD }}' >> .env
             echo "${{ secrets.SSL_CERTIFICATE }}" > ./conf/nginx/cert/geniungamartya.xyz.pem
             echo "${{ secrets.SSL_CERTIFICATE_KEY }}" > ./conf/nginx/cert/geniungamartya.xyz.key
+            cd frontend
             npm install
             npm run build
+            cd ../
             docker compose build
             docker compose down --remove-orphans
             docker compose up -d
