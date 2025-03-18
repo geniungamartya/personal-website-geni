@@ -40,7 +40,7 @@ services:
       - 443:443      
     volumes:
       # So that Traefik can listen to the Docker events
-      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/run/docker.sock:/var/run/docker.sock:ro
       # Mount the volume to store the certificates
       - traefik-public-certificates:/certificates
     restart: always
@@ -100,8 +100,10 @@ services:
       # Enable redirection for HTTP and HTTPS
       - traefik.http.routers.frontend-http.middlewares=https-redirect
       - traefik.docker.network=traefik-public
+      - traefik.constraint-label=traefik-public
     networks:
       - traefik-public
+      - default
 
   minio:
     image: quay.io/minio/minio:RELEASE.2025-03-12T18-04-18Z-cpuv1
