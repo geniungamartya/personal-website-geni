@@ -69,12 +69,21 @@ jobs:
           script: |
             export NVM_DIR=$HOME/.nvm
             [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
             cd personal-website-geni/
             git pull
-            echo 'MINIO_ROOT_USER=${{ secrets.MINIO_ROOT_USER }}' > .env
-            echo 'MINIO_ROOT_PASSWORD=${{ secrets.MINIO_ROOT_PASSWORD }}' >> .env
-            echo "${{ secrets.SSL_CERTIFICATE }}" > ./conf/nginx/cert/geniungamartya.xyz.pem
-            echo "${{ secrets.SSL_CERTIFICATE_KEY }}" > ./conf/nginx/cert/geniungamartya.xyz.key
+
+            # Write all environment variables to .env
+            cat <<EOF > .env
+            DOMAIN=${{ secrets.DOMAIN }}
+            EMAIL=${{ secrets.EMAIL }}
+            USERNAME=${{ secrets.USERNAME }}
+            PASSWORD=${{ secrets.PASSWORD }}
+            HASHED_PASSWORD=${{ secrets.HASHED_PASSWORD }}
+            MINIO_ROOT_USER=${{ secrets.MINIO_ROOT_USER }}
+            MINIO_ROOT_PASSWORD=${{ secrets.MINIO_ROOT_PASSWORD }}
+            EOF
+
             cd frontend
             npm install
             npm run build

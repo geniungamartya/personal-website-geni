@@ -20,8 +20,8 @@ services:
       # Create an entrypoint "http" listening on port 80
       - --entrypoints.http.address=:80
 
-      - --api.insecure=true
       # # PRODUCTION
+      - --api.insecure=true # DEV ONLY
       # # Create an entrypoint "https" listening on port 443
       # - --entrypoints.https.address=:443
       # # Create the certificate resolver "le" for Let's Encrypt, uses the environment variable EMAIL
