@@ -68,6 +68,12 @@ services:
       - traefik.http.middlewares.admin-auth.basicauth.users=${USERNAME?Variable not set}:${HASHED_PASSWORD?Variable not set}
       # Enable HTTP Basic auth, using the middleware created above
       - traefik.http.routers.traefik-dashboard-https.middlewares=admin-auth
+      # Use the traefik-public network (declared below)
+      - traefik.docker.network=traefik-public
+    networks:
+      # Use the public network created to be shared between Traefik and
+      # any other service that needs to be publicly available with HTTPS
+      - traefik-public
   frontend:
     image: nginx:alpine
     platform: linux/amd64
@@ -90,6 +96,9 @@ services:
       - traefik.http.routers.frontend-https.tls.certresolver=le
       # Enable redirection for HTTP and HTTPS
       - traefik.http.routers.frontend-http.middlewares=https-redirect
+      - traefik.docker.network=traefik-public
+    networks:
+      - traefik-public
 
   minio:
     image: quay.io/minio/minio:RELEASE.2025-03-12T18-04-18Z-cpuv1
@@ -131,7 +140,16 @@ services:
       - traefik.http.routers.console-storage-https.tls.certresolver=le
       # Enable redirection for HTTP and HTTPS
       - traefik.http.routers.console-storage-http.middlewares=https-redirect
+      - traefik.docker.network=traefik-public
+    networks:
+      - traefik-public
 
 volumes:
   # Create a volume to store the certificates, even if the container is recreated
   traefik-public-certificates:
+
+networks:
+  # Use the previously created public network "traefik-public", shared with other
+  # services that need to be publicly available via this Traefik
+  traefik-public:
+    external: true  
