@@ -101,5 +101,5 @@ jobs:
             npm run build
             cd ../
             docker compose build
-            # docker compose down --remove-orphans
+            docker compose down --remove-orphans
             docker compose up -d
