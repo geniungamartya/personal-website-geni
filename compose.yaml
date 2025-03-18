@@ -13,7 +13,7 @@ services:
       - ./conf/nginx/prod.storage.nginx.conf:/etc/nginx/conf.d/site-2.conf:ro
       - ./conf/nginx/prod.storage.console.nginx.conf:/etc/nginx/conf.d/site-2.conf:ro
       - ./conf/nginx/cert/:/etc/ssl/:ro
-      - ./dist:/var/www/vite-app
+      - ./frontend/dist:/var/www/vite-app
 
   minio:
     image: quay.io/minio/minio:RELEASE.2025-03-12T18-04-18Z-cpuv1
