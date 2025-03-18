@@ -25,6 +25,18 @@ jobs:
         with:
           node-version: "18"
 
+      - name: Create .env file
+        run: |
+          cat <<EOF > .env
+          DOMAIN=${{ secrets.DOMAIN }}
+          EMAIL=${{ secrets.EMAIL }}
+          USERNAME=${{ secrets.USERNAME }}
+          PASSWORD=${{ secrets.PASSWORD }}
+          HASHED_PASSWORD=${{ secrets.HASHED_PASSWORD }}
+          MINIO_ROOT_USER=${{ secrets.MINIO_ROOT_USER }}
+          MINIO_ROOT_PASSWORD=${{ secrets.MINIO_ROOT_PASSWORD }}
+          EOF
+
       # install dependencies
       - name: Install Dependencies
         working-directory: frontend
