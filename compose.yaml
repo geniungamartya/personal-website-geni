@@ -20,8 +20,7 @@ services:
       # Create an entrypoint "http" listening on port 80
       - --entrypoints.http.address=:80
 
-      # # # # # PRODUCTION # # # # # # # # 
-      # - --api.insecure=true # DEV ONLY
+      # # # # # PRODUCTION # # # # # # # #
       # Create an entrypoint "https" listening on port 443
       - --entrypoints.https.address=:443
       # Create the certificate resolver "le" for Let's Encrypt, uses the environment variable EMAIL
@@ -34,10 +33,8 @@ services:
     ports:
       # The HTTP port
       - "80:80"
-      # The Web UI (enabled by --api.insecure=true)
-      - "8080:8080"
       # Listen on port 443, default for HTTPS
-      - 443:443      
+      - 443:443
     volumes:
       # So that Traefik can listen to the Docker events
       - /var/run/docker.sock:/var/run/docker.sock:ro
@@ -52,7 +49,7 @@ services:
       # Make Traefik use this domain (from an environment variable) in HTTP
       - traefik.http.routers.traefik-dashboard-http.entrypoints=http
       - traefik.http.routers.traefik-dashboard-http.rule=Host(`traefik.${DOMAIN?Variable not set}`)
-      # # # # # PRODUCTION # # # # # # # # 
+      # # # # # PRODUCTION # # # # # # # #
       # traefik-https the actual router using HTTPS
       - traefik.http.routers.traefik-dashboard-https.entrypoints=https
       - traefik.http.routers.traefik-dashboard-https.rule=Host(`traefik.${DOMAIN?Variable not set}`)
@@ -91,7 +88,7 @@ services:
       # Http
       - traefik.http.routers.frontend-http.rule=Host(`blog.${DOMAIN?Variable not set}`)
       - traefik.http.routers.frontend-http.entrypoints=http
-      # # # # # PRODUCTION # # # # # # # # 
+      # # # # # PRODUCTION # # # # # # # #
       # Https
       - traefik.http.routers.frontend-https.rule=Host(`blog.${DOMAIN?Variable not set}`)
       - traefik.http.routers.frontend-https.entrypoints=https
@@ -103,7 +100,6 @@ services:
       - traefik.constraint-label=traefik-public
     networks:
       - traefik-public
-      - default
 
   minio:
     image: quay.io/minio/minio:RELEASE.2025-03-12T18-04-18Z-cpuv1
@@ -120,7 +116,7 @@ services:
       - traefik.http.routers.storage-http.rule=Host(`storage.${DOMAIN?Variable not set}`)
       - traefik.http.routers.storage-http.entrypoints=http
       - traefik.http.routers.storage-http.service=storage
-      # # # # # PRODUCTION # # # # # # # # 
+      # # # # # PRODUCTION # # # # # # # #
       # Https
       - traefik.http.routers.storage-https.rule=Host(`storage.${DOMAIN?Variable not set}`)
       - traefik.http.routers.storage-https.entrypoints=https
@@ -136,7 +132,7 @@ services:
       - traefik.http.routers.console-storage-http.rule=Host(`console-storage.${DOMAIN?Variable not set}`)
       - traefik.http.routers.console-storage-http.entrypoints=http
       - traefik.http.routers.console-storage-http.service=console-storage
-      # # # # PRODUCTION # # # # 
+      # # # # PRODUCTION # # # #
       # Https
       - traefik.http.routers.console-storage-https.rule=Host(`console-storage.${DOMAIN?Variable not set}`)
       - traefik.http.routers.console-storage-https.entrypoints=https
@@ -160,4 +156,4 @@ networks:
   # Use the previously created public network "traefik-public", shared with other
   # services that need to be publicly available via this Traefik
   traefik-public:
-    external: true  
+    external: true
