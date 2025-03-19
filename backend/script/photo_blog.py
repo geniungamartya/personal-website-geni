@@ -5,10 +5,9 @@ import sys
 from pathlib import Path
 
 import typer
+from backend.app.service.storage_service import StorageService
 from dotenv import load_dotenv
 from rich.progress import Progress
-
-from storage import MinioClient
 
 # Configure logging
 logging.basicConfig(stream=sys.stdout, level=logging.INFO)
@@ -19,7 +18,7 @@ load_dotenv()
 app = typer.Typer()
 
 # Initialize MinIO client
-minio_client = MinioClient()
+minio_client = StorageService()
 bucket_name = os.getenv("MINIO_BUCKET")
 
 
@@ -75,7 +74,7 @@ def generate_json(output_file: str, url_docker: str):
         file_url = minio_client.get_object_url(bucket_name, obj)
 
         if url_docker:
-            file_url = file_url.replace(f"http://{os.getenv("MINIO_URL")}", url_docker)
+            file_url = file_url.replace(f"http://{os.getenv('MINIO_URL')}", url_docker)
 
         media_list.setdefault(subdir, []).append({"src": file_url, "thumb": file_url})
 

@@ -2,18 +2,19 @@ import json
 import logging
 import os
 
+from backend.app.config.storage_config import StorageSettings
 from minio import Minio
 from minio.error import S3Error
 
 
-class MinioClient:
-    def __init__(self):
+class StorageService:
+    def __init__(self, config: StorageSettings = StorageSettings()):
         """Initialize MinIO client with environment variables."""
         self.client = Minio(
-            os.getenv("MINIO_URL"),
-            access_key=os.getenv("MINIO_USER"),
-            secret_key=os.getenv("MINIO_PASS"),
-            secure=False,
+            config.URL,
+            access_key=config.USER,
+            secret_key=config.PASSWORD,
+            secure=config.USE_HTTPS,
         )
 
     def create_bucket(self, bucket_name: str):
