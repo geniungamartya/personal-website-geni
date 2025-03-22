@@ -2,9 +2,10 @@ import json
 import logging
 import os
 
-from backend.app.config.storage_config import StorageSettings
 from minio import Minio
 from minio.error import S3Error
+
+from app.config.storage_config import StorageSettings
 
 
 class StorageService:

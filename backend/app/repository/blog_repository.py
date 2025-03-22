@@ -1,5 +1,4 @@
-from backend.app.model.blog_post import BlogPost
-
+from app.model.blog_post import BlogPost
 from app.service.database_service import DatabaseService
 
 
@@ -11,4 +10,4 @@ class BlogRepository:
         self.database_service = database_service
 
     def get_blog_posts(self, id) -> list[BlogPost] | None:
-        return self.database_service.execute(f"SELEC * FROM {self.table_name}")
+        return self.database_service.execute(f"SELECT * FROM {self.table_name}")

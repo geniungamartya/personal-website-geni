@@ -1,9 +1,10 @@
 from contextlib import contextmanager
 from typing import Iterator
 
-from backend.app.config.database_config import DatabaseSetting
 from psycopg2.extras import DictCursor
 from sqlalchemy import URL, Connection, QueuePool, create_engine, text
+
+from app.config.database_config import DatabaseSetting
 
 
 class DatabaseService:
@@ -44,26 +45,3 @@ class DatabaseService:
                     return conn.execute(stmt).fetchall()
                 case _:
                     return conn.execute(stmt)
-
-
-_config = DatabaseSetting()
-_pg_url = URL.create(
-    drivername="postgresql+psycopg2",
-    username=_config.USER,
-    password=_config.PASSWORD,
-    database=_config.DB,
-    host=_config.HOST,
-    port=_config.PORT,
-)
-engine = create_engine(
-    _pg_url,
-    poolclass=QueuePool,
-    echo="debug" if _config.PG_DEBUG else None,
-    pool_pre_ping=True,
-)
-
-
-def get_connection() -> Iterator[Connection]:
-    with engine.connect(cursor_factory=DictCursor) as conn:
-        yield conn
-        conn.commit()

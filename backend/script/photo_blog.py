@@ -5,9 +5,10 @@ import sys
 from pathlib import Path
 
 import typer
-from backend.app.service.storage_service import StorageService
 from dotenv import load_dotenv
 from rich.progress import Progress
+
+from app.service.storage_service import StorageService
 
 # Configure logging
 logging.basicConfig(stream=sys.stdout, level=logging.INFO)
