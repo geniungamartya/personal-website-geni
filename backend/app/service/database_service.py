@@ -1,7 +1,6 @@
 from contextlib import contextmanager
 from typing import Iterator
 
-from psycopg2.extras import DictCursor
 from sqlalchemy import URL, Connection, QueuePool, create_engine, text
 
 from app.config.database_config import DatabaseSetting
@@ -28,7 +27,7 @@ class DatabaseService:
 
     @contextmanager
     def get_connection(self) -> Iterator[Connection]:
-        with self.engine.connect(cursor_factory=DictCursor) as conn:
+        with self.engine.connect() as conn:
             yield conn
             conn.commit()
 
@@ -40,8 +39,8 @@ class DatabaseService:
         with self.get_connection() as conn:
             match return_type:
                 case "one":
-                    return conn.execute(stmt).fetchone()
+                    return conn.execute(stmt).mappings().one_or_none()
                 case "all":
-                    return conn.execute(stmt).fetchall()
+                    return conn.execute(stmt).mappings().all()
                 case _:
                     return conn.execute(stmt)

@@ -80,25 +80,24 @@ services:
     volumes:
       - minio-data:/data
 
-  # db:
-  #   image: postgis/postgis:15-3.4
-  #   container_name: db
-  #   platform: linux/amd64
-  #   restart: always
-  #   env_file:
-  #     - .env
-  #   ports:
-  #     - "15432:5432"
-  #   healthcheck:
-  #     test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
-  #     # test:
-  #     #   [
-  #     #     "CMD-SHELL",
-  #     #     "pg_isready -U postgres -d terra-postgis && [ $(psql -U postgres -d terra-postgis -tAc 'SELECT COUNT(*) FROM pg_extension;') -ge 5 ]",
-  #     #   ]
-  #     interval: 5s
-  #     retries: 10
-  #     timeout: 10s
+  db:
+    image: postgis/postgis:15-3.4
+    container_name: db
+    platform: linux/amd64
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "15432:5432"
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB} && [ $(psql -U ${POSTGRES_USER} -d ${POSTGRES_DB} -tAc 'SELECT COUNT(*) FROM pg_extension;') -ge 5 ]",
+        ]
+      interval: 5s
+      retries: 10
+      timeout: 10s
 
 volumes:
   # Create a volume to store the certificates, even if the container is recreated

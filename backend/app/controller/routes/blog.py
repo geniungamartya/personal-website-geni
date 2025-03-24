@@ -1,19 +1,47 @@
-from fastapi import APIRouter, Depends, HTTPException, status
-from h11 import Response
+from typing import List
 
-from app.controller.deps import get_db_service
-from app.service.database_service import DatabaseService
+from fastapi import APIRouter, Depends, HTTPException
+
+from app.controller.deps import get_blog_service
+from app.model.blog_post import BlogPost
+from app.service.blog_service import BlogService
 
 router = APIRouter(prefix="/blog", tags=["blog"])
 
 
-@router.get("/")
-def get_all_blog_posts(
-    skip: int = 0,
-    limit: int = 100,
-    db_service: DatabaseService = Depends(get_db_service),
-) -> Response:
-    try:
-        return Response(status_code=status.HTTP_200_OK)
-    except Exception:
-        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST)
+@router.post("/", response_model=BlogPost)
+def create_blog_post(blog: BlogPost, service: BlogService = Depends(get_blog_service)):
+    """Create a new blog post."""
+    service.create_blog_post(blog)
+    return blog
+
+
+@router.get("/", response_model=List[BlogPost])
+def get_all_blog_posts(service: BlogService = Depends(get_blog_service)):
+    """Retrieve all blog posts."""
+    return service.get_all_blog_posts()
+
+
+@router.get("/{blog_id}", response_model=BlogPost)
+def get_blog_post_by_id(blog_id: str, service: BlogService = Depends(get_blog_service)):
+    """Retrieve a blog post by ID."""
+    blog = service.get_blog_post_by_id(blog_id)
+    if not blog:
+        raise HTTPException(status_code=404, detail="Blog post not found")
+    return blog
+
+
+@router.put("/{blog_id}", response_model=BlogPost)
+def update_blog_post(
+    blog_id: str, blog: BlogPost, service: BlogService = Depends(get_blog_service)
+):
+    """Update an existing blog post."""
+    service.update_blog_post(blog_id, blog)
+    return blog
+
+
+@router.delete("/{blog_id}")
+def delete_blog_post(blog_id: str, service: BlogService = Depends(get_blog_service)):
+    """Delete a blog post by ID."""
+    service.delete_blog_post(blog_id)
+    return {"message": "Blog post deleted successfully"}
