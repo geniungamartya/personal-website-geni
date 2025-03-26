@@ -29,12 +29,13 @@ class BlogService:
         """Retrieves a blog post by its ID."""
         return self.blog_repository.get_blog_post_by_id(blog_id)
 
-    def update_blog_post(self, blog_id: UUID, blog_data: BlogPostData) -> None:
+    def update_blog_post(self, blog_id: UUID, blog_data: BlogPostData) -> BlogPost:
         """Updates an existing blog post."""
         blog = BlogPost(
             id=blog_id, **blog_data.model_dump()
         )  # Generate UUID and create BlogPost
         self.blog_repository.update_blog_post(blog)
+        return blog
 
     def delete_blog_post(self, blog_id: str) -> None:
         """Deletes a blog post by its ID."""
