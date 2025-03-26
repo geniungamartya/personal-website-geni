@@ -16,9 +16,10 @@ class BlogService:
         blog = BlogPost(
             id=uuid4(), **blog_data.model_dump()
         )  # Generate UUID and create BlogPost
-        return self.blog_repository.create_blog_post(
+        self.blog_repository.create_blog_post(
             blog
         )  # Save and return the created blog post
+        return blog
 
     def get_all_blog_posts(self) -> List[BlogPost]:
         """Retrieves all blog posts."""
