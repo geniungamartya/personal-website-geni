@@ -5,16 +5,20 @@ Welcome to the Geni's Personal Website repo.
 First, run the development server:
 
 ```bash
+docker compose -f dev.docker-compose.yaml up db -d
+alembic upgrade head
+fastapi dev
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:5173](http://localhost:5173) with your browser to see the frontend app and [http://localhost:8000](http://localhost:8000) for backend API docs.
 
 ## Commiting
 
 Run formatter and linter:
 
 ```
+./backend/script/generate-client.sh
 ./check.sh
 ```
 
