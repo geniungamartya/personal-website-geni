@@ -1,4 +1,4 @@
-/* eslint-disable */
+ 
 
 // @ts-nocheck
 
@@ -10,136 +10,136 @@
 
 // Import Routes
 
-import { Route as rootRoute } from './routes/__root'
-import { Route as PlaygroundImport } from './routes/playground'
-import { Route as PhotoVideoImport } from './routes/photo-video'
-import { Route as BlogImport } from './routes/blog'
-import { Route as IndexImport } from './routes/index'
-import { Route as BlogIndexImport } from './routes/blog.index'
-import { Route as BlogEditorImport } from './routes/blog.editor'
-import { Route as BlogDashboardImport } from './routes/blog.dashboard'
-import { Route as BlogSlugImport } from './routes/blog.$slug'
+import { Route as rootRoute } from "./routes/__root";
+import { Route as PlaygroundImport } from "./routes/playground";
+import { Route as PhotoVideoImport } from "./routes/photo-video";
+import { Route as BlogImport } from "./routes/blog";
+import { Route as IndexImport } from "./routes/index";
+import { Route as BlogIndexImport } from "./routes/blog.index";
+import { Route as BlogEditorImport } from "./routes/blog.editor";
+import { Route as BlogDashboardImport } from "./routes/blog.dashboard";
+import { Route as BlogSlugImport } from "./routes/blog.$slug";
 
 // Create/Update Routes
 
 const PlaygroundRoute = PlaygroundImport.update({
-  id: '/playground',
-  path: '/playground',
+  id: "/playground",
+  path: "/playground",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const PhotoVideoRoute = PhotoVideoImport.update({
-  id: '/photo-video',
-  path: '/photo-video',
+  id: "/photo-video",
+  path: "/photo-video",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const BlogRoute = BlogImport.update({
-  id: '/blog',
-  path: '/blog',
+  id: "/blog",
+  path: "/blog",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const IndexRoute = IndexImport.update({
-  id: '/',
-  path: '/',
+  id: "/",
+  path: "/",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const BlogIndexRoute = BlogIndexImport.update({
-  id: '/',
-  path: '/',
+  id: "/",
+  path: "/",
   getParentRoute: () => BlogRoute,
-} as any)
+} as any);
 
 const BlogEditorRoute = BlogEditorImport.update({
-  id: '/editor',
-  path: '/editor',
+  id: "/editor",
+  path: "/editor",
   getParentRoute: () => BlogRoute,
-} as any)
+} as any);
 
 const BlogDashboardRoute = BlogDashboardImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
+  id: "/dashboard",
+  path: "/dashboard",
   getParentRoute: () => BlogRoute,
-} as any)
+} as any);
 
 const BlogSlugRoute = BlogSlugImport.update({
-  id: '/$slug',
-  path: '/$slug',
+  id: "/$slug",
+  path: "/$slug",
   getParentRoute: () => BlogRoute,
-} as any)
+} as any);
 
 // Populate the FileRoutesByPath interface
 
-declare module '@tanstack/react-router' {
+declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/blog': {
-      id: '/blog'
-      path: '/blog'
-      fullPath: '/blog'
-      preLoaderRoute: typeof BlogImport
-      parentRoute: typeof rootRoute
-    }
-    '/photo-video': {
-      id: '/photo-video'
-      path: '/photo-video'
-      fullPath: '/photo-video'
-      preLoaderRoute: typeof PhotoVideoImport
-      parentRoute: typeof rootRoute
-    }
-    '/playground': {
-      id: '/playground'
-      path: '/playground'
-      fullPath: '/playground'
-      preLoaderRoute: typeof PlaygroundImport
-      parentRoute: typeof rootRoute
-    }
-    '/blog/$slug': {
-      id: '/blog/$slug'
-      path: '/$slug'
-      fullPath: '/blog/$slug'
-      preLoaderRoute: typeof BlogSlugImport
-      parentRoute: typeof BlogImport
-    }
-    '/blog/dashboard': {
-      id: '/blog/dashboard'
-      path: '/dashboard'
-      fullPath: '/blog/dashboard'
-      preLoaderRoute: typeof BlogDashboardImport
-      parentRoute: typeof BlogImport
-    }
-    '/blog/editor': {
-      id: '/blog/editor'
-      path: '/editor'
-      fullPath: '/blog/editor'
-      preLoaderRoute: typeof BlogEditorImport
-      parentRoute: typeof BlogImport
-    }
-    '/blog/': {
-      id: '/blog/'
-      path: '/'
-      fullPath: '/blog/'
-      preLoaderRoute: typeof BlogIndexImport
-      parentRoute: typeof BlogImport
-    }
+    "/": {
+      id: "/";
+      path: "/";
+      fullPath: "/";
+      preLoaderRoute: typeof IndexImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/blog": {
+      id: "/blog";
+      path: "/blog";
+      fullPath: "/blog";
+      preLoaderRoute: typeof BlogImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/photo-video": {
+      id: "/photo-video";
+      path: "/photo-video";
+      fullPath: "/photo-video";
+      preLoaderRoute: typeof PhotoVideoImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/playground": {
+      id: "/playground";
+      path: "/playground";
+      fullPath: "/playground";
+      preLoaderRoute: typeof PlaygroundImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/blog/$slug": {
+      id: "/blog/$slug";
+      path: "/$slug";
+      fullPath: "/blog/$slug";
+      preLoaderRoute: typeof BlogSlugImport;
+      parentRoute: typeof BlogImport;
+    };
+    "/blog/dashboard": {
+      id: "/blog/dashboard";
+      path: "/dashboard";
+      fullPath: "/blog/dashboard";
+      preLoaderRoute: typeof BlogDashboardImport;
+      parentRoute: typeof BlogImport;
+    };
+    "/blog/editor": {
+      id: "/blog/editor";
+      path: "/editor";
+      fullPath: "/blog/editor";
+      preLoaderRoute: typeof BlogEditorImport;
+      parentRoute: typeof BlogImport;
+    };
+    "/blog/": {
+      id: "/blog/";
+      path: "/";
+      fullPath: "/blog/";
+      preLoaderRoute: typeof BlogIndexImport;
+      parentRoute: typeof BlogImport;
+    };
   }
 }
 
 // Create and export the route tree
 
 interface BlogRouteChildren {
-  BlogSlugRoute: typeof BlogSlugRoute
-  BlogDashboardRoute: typeof BlogDashboardRoute
-  BlogEditorRoute: typeof BlogEditorRoute
-  BlogIndexRoute: typeof BlogIndexRoute
+  BlogSlugRoute: typeof BlogSlugRoute;
+  BlogDashboardRoute: typeof BlogDashboardRoute;
+  BlogEditorRoute: typeof BlogEditorRoute;
+  BlogIndexRoute: typeof BlogIndexRoute;
 }
 
 const BlogRouteChildren: BlogRouteChildren = {
@@ -147,81 +147,81 @@ const BlogRouteChildren: BlogRouteChildren = {
   BlogDashboardRoute: BlogDashboardRoute,
   BlogEditorRoute: BlogEditorRoute,
   BlogIndexRoute: BlogIndexRoute,
-}
+};
 
-const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
+const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren);
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/blog': typeof BlogRouteWithChildren
-  '/photo-video': typeof PhotoVideoRoute
-  '/playground': typeof PlaygroundRoute
-  '/blog/$slug': typeof BlogSlugRoute
-  '/blog/dashboard': typeof BlogDashboardRoute
-  '/blog/editor': typeof BlogEditorRoute
-  '/blog/': typeof BlogIndexRoute
+  "/": typeof IndexRoute;
+  "/blog": typeof BlogRouteWithChildren;
+  "/photo-video": typeof PhotoVideoRoute;
+  "/playground": typeof PlaygroundRoute;
+  "/blog/$slug": typeof BlogSlugRoute;
+  "/blog/dashboard": typeof BlogDashboardRoute;
+  "/blog/editor": typeof BlogEditorRoute;
+  "/blog/": typeof BlogIndexRoute;
 }
 
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/photo-video': typeof PhotoVideoRoute
-  '/playground': typeof PlaygroundRoute
-  '/blog/$slug': typeof BlogSlugRoute
-  '/blog/dashboard': typeof BlogDashboardRoute
-  '/blog/editor': typeof BlogEditorRoute
-  '/blog': typeof BlogIndexRoute
+  "/": typeof IndexRoute;
+  "/photo-video": typeof PhotoVideoRoute;
+  "/playground": typeof PlaygroundRoute;
+  "/blog/$slug": typeof BlogSlugRoute;
+  "/blog/dashboard": typeof BlogDashboardRoute;
+  "/blog/editor": typeof BlogEditorRoute;
+  "/blog": typeof BlogIndexRoute;
 }
 
 export interface FileRoutesById {
-  __root__: typeof rootRoute
-  '/': typeof IndexRoute
-  '/blog': typeof BlogRouteWithChildren
-  '/photo-video': typeof PhotoVideoRoute
-  '/playground': typeof PlaygroundRoute
-  '/blog/$slug': typeof BlogSlugRoute
-  '/blog/dashboard': typeof BlogDashboardRoute
-  '/blog/editor': typeof BlogEditorRoute
-  '/blog/': typeof BlogIndexRoute
+  __root__: typeof rootRoute;
+  "/": typeof IndexRoute;
+  "/blog": typeof BlogRouteWithChildren;
+  "/photo-video": typeof PhotoVideoRoute;
+  "/playground": typeof PlaygroundRoute;
+  "/blog/$slug": typeof BlogSlugRoute;
+  "/blog/dashboard": typeof BlogDashboardRoute;
+  "/blog/editor": typeof BlogEditorRoute;
+  "/blog/": typeof BlogIndexRoute;
 }
 
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
+  fileRoutesByFullPath: FileRoutesByFullPath;
   fullPaths:
-    | '/'
-    | '/blog'
-    | '/photo-video'
-    | '/playground'
-    | '/blog/$slug'
-    | '/blog/dashboard'
-    | '/blog/editor'
-    | '/blog/'
-  fileRoutesByTo: FileRoutesByTo
+    | "/"
+    | "/blog"
+    | "/photo-video"
+    | "/playground"
+    | "/blog/$slug"
+    | "/blog/dashboard"
+    | "/blog/editor"
+    | "/blog/";
+  fileRoutesByTo: FileRoutesByTo;
   to:
-    | '/'
-    | '/photo-video'
-    | '/playground'
-    | '/blog/$slug'
-    | '/blog/dashboard'
-    | '/blog/editor'
-    | '/blog'
+    | "/"
+    | "/photo-video"
+    | "/playground"
+    | "/blog/$slug"
+    | "/blog/dashboard"
+    | "/blog/editor"
+    | "/blog";
   id:
-    | '__root__'
-    | '/'
-    | '/blog'
-    | '/photo-video'
-    | '/playground'
-    | '/blog/$slug'
-    | '/blog/dashboard'
-    | '/blog/editor'
-    | '/blog/'
-  fileRoutesById: FileRoutesById
+    | "__root__"
+    | "/"
+    | "/blog"
+    | "/photo-video"
+    | "/playground"
+    | "/blog/$slug"
+    | "/blog/dashboard"
+    | "/blog/editor"
+    | "/blog/";
+  fileRoutesById: FileRoutesById;
 }
 
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  BlogRoute: typeof BlogRouteWithChildren
-  PhotoVideoRoute: typeof PhotoVideoRoute
-  PlaygroundRoute: typeof PlaygroundRoute
+  IndexRoute: typeof IndexRoute;
+  BlogRoute: typeof BlogRouteWithChildren;
+  PhotoVideoRoute: typeof PhotoVideoRoute;
+  PlaygroundRoute: typeof PlaygroundRoute;
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -229,11 +229,11 @@ const rootRouteChildren: RootRouteChildren = {
   BlogRoute: BlogRouteWithChildren,
   PhotoVideoRoute: PhotoVideoRoute,
   PlaygroundRoute: PlaygroundRoute,
-}
+};
 
 export const routeTree = rootRoute
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+  ._addFileTypes<FileRouteTypes>();
 
 /* ROUTE_MANIFEST_START
 {

@@ -18,10 +18,8 @@ export function GalleryCarousel({
   media: MediaData[];
   maxMedia?: number;
 }) {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const lightGallery = useRef<any>(null);
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onInit = useCallback((detail: any) => {
     if (detail) {
       lightGallery.current = detail.instance;
