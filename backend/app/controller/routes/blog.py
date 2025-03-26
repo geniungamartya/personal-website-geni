@@ -1,4 +1,5 @@
 from typing import List
+from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException
 
@@ -35,10 +36,12 @@ def get_blog_post_by_id(blog_id: str, service: BlogService = Depends(get_blog_se
 
 @router.put("/{blog_id}", response_model=BlogPost)
 def update_blog_post(
-    blog_id: str, blog: BlogPost, service: BlogService = Depends(get_blog_service)
+    blog_id: UUID,
+    blog_data: BlogPostData,
+    service: BlogService = Depends(get_blog_service),
 ):
     """Update an existing blog post."""
-    service.update_blog_post(blog_id, blog)
+    blog = service.update_blog_post(blog_id, blog_data)
     return blog
 
 

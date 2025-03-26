@@ -29,15 +29,14 @@ class BlogRepository:
         )
         return BlogPost(**result) if result else None
 
-    def update_blog_post(self, blog_id: str, blog: BlogPost) -> None:
+    def update_blog_post(self, blog: BlogPost) -> None:
         """Update a blog post."""
         query = f"""
         UPDATE {self.table_name}
         SET title = :title, slug = :slug, content = :content
         WHERE id = :id
         """
-        params = blog.model_dump() | {"id": blog_id}
-        self.database_service.execute(query, params, return_type=None)
+        self.database_service.execute(query, blog.model_dump(), return_type=None)
 
     def delete_blog_post(self, blog_id: str) -> None:
         """Delete a blog post by ID."""

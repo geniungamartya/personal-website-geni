@@ -39,7 +39,7 @@ export type GetBlogPostByIdBlogBlogIdGetResponse = BlogPost;
 
 export type UpdateBlogPostBlogBlogIdPutData = {
   blogId: string;
-  requestBody: BlogPost;
+  requestBody: BlogPostData;
 };
 
 export type UpdateBlogPostBlogBlogIdPutResponse = BlogPost;
