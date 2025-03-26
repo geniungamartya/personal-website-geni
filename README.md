@@ -6,6 +6,8 @@ First, run the development server:
 
 ```bash
 docker compose -f dev.docker-compose.yaml up db -d
+alembic downgrade base
+alembic revision -m "create account table"
 alembic upgrade head
 fastapi dev
 npm run dev
