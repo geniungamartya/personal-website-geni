@@ -1,6 +1,7 @@
 from typing import List
+from uuid import uuid4
 
-from app.model.blog_post import BlogPost
+from app.model.blog_post import BlogPost, BlogPostData
 from app.repository.blog_repository import BlogRepository
 
 
@@ -10,9 +11,14 @@ class BlogService:
     def __init__(self, blog_repository: BlogRepository = BlogRepository()):
         self.blog_repository = blog_repository
 
-    def create_blog_post(self, blog: BlogPost) -> None:
-        """Creates a new blog post."""
-        self.blog_repository.create_blog_post(blog)
+    def create_blog_post(self, blog_data: BlogPostData) -> BlogPost:
+        """Creates a new blog post with a generated UUID."""
+        blog = BlogPost(
+            id=uuid4(), **blog_data.model_dump()
+        )  # Generate UUID and create BlogPost
+        return self.blog_repository.create_blog_post(
+            blog
+        )  # Save and return the created blog post
 
     def get_all_blog_posts(self) -> List[BlogPost]:
         """Retrieves all blog posts."""

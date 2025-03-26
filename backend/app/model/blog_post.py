@@ -1,10 +1,13 @@
-from uuid import UUID, uuid4
+from uuid import UUID
 
 from pydantic import BaseModel
 
 
-class BlogPost(BaseModel):
-    id: UUID = uuid4()
+class BlogPostData(BaseModel):
     title: str
     slug: str
     content: str
+
+
+class BlogPost(BlogPostData):
+    id: UUID

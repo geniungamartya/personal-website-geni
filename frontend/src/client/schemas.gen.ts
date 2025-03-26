@@ -2,12 +2,31 @@
 
 export const BlogPostSchema = {
   properties: {
+    title: {
+      type: "string",
+      title: "Title",
+    },
+    slug: {
+      type: "string",
+      title: "Slug",
+    },
+    content: {
+      type: "string",
+      title: "Content",
+    },
     id: {
       type: "string",
       format: "uuid",
       title: "Id",
-      default: "4544f165-2dc4-4e49-840c-e2de255e04a5",
     },
+  },
+  type: "object",
+  required: ["title", "slug", "content", "id"],
+  title: "BlogPost",
+} as const;
+
+export const BlogPostDataSchema = {
+  properties: {
     title: {
       type: "string",
       title: "Title",
@@ -23,7 +42,7 @@ export const BlogPostSchema = {
   },
   type: "object",
   required: ["title", "slug", "content"],
-  title: "BlogPost",
+  title: "BlogPostData",
 } as const;
 
 export const HTTPValidationErrorSchema = {

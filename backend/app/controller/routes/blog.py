@@ -3,16 +3,18 @@ from typing import List
 from fastapi import APIRouter, Depends, HTTPException
 
 from app.controller.deps import get_blog_service
-from app.model.blog_post import BlogPost
+from app.model.blog_post import BlogPost, BlogPostData
 from app.service.blog_service import BlogService
 
 router = APIRouter(prefix="/blog", tags=["blog"])
 
 
 @router.post("/", response_model=BlogPost)
-def create_blog_post(blog: BlogPost, service: BlogService = Depends(get_blog_service)):
+def create_blog_post(
+    blog_data: BlogPostData, service: BlogService = Depends(get_blog_service)
+):
     """Create a new blog post."""
-    service.create_blog_post(blog)
+    blog = service.create_blog_post(blog_data)
     return blog
 
 
