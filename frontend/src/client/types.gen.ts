@@ -13,8 +13,39 @@ export type BlogPostData = {
   content: string;
 };
 
+export type Body_login_access_token_login_access_token_post = {
+  grant_type?: string | null;
+  username: string;
+  password: string;
+  scope?: string;
+  client_id?: string | null;
+  client_secret?: string | null;
+};
+
 export type HTTPValidationError = {
   detail?: Array<ValidationError>;
+};
+
+export type Token = {
+  access_token: string;
+  token_type?: string;
+};
+
+export type User = {
+  email: string;
+  is_active?: boolean;
+  is_superuser?: boolean;
+  full_name?: string;
+  id: string;
+  hashed_password: string;
+};
+
+export type UserCreate = {
+  email: string;
+  is_active?: boolean;
+  is_superuser?: boolean;
+  full_name?: string;
+  password: string;
 };
 
 export type ValidationError = {
@@ -51,3 +82,38 @@ export type DeleteBlogPostBlogBlogIdDeleteData = {
 export type DeleteBlogPostBlogBlogIdDeleteResponse = unknown;
 
 export type HealthCheckHealthGetResponse = unknown;
+
+export type LoginAccessTokenLoginAccessTokenPostData = {
+  formData: Body_login_access_token_login_access_token_post;
+};
+
+export type LoginAccessTokenLoginAccessTokenPostResponse = Token;
+
+export type ReadUsersMeUsersMeGetResponse = User;
+
+export type GetUsersUsersGetResponse = Array<User>;
+
+export type GetUserUsersUserIdGetData = {
+  userId: string;
+};
+
+export type GetUserUsersUserIdGetResponse = User;
+
+export type DeleteUserUsersUserIdDeleteData = {
+  userId: string;
+};
+
+export type DeleteUserUsersUserIdDeleteResponse = unknown;
+
+export type RegisterUserUsersRegisterPostData = {
+  requestBody: UserCreate;
+};
+
+export type RegisterUserUsersRegisterPostResponse = User;
+
+export type UpdateUserRoleUsersUserIdRolePatchData = {
+  isSuperuser: boolean;
+  userId: string;
+};
+
+export type UpdateUserRoleUsersUserIdRolePatchResponse = unknown;

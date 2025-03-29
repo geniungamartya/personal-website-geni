@@ -45,6 +45,61 @@ export const BlogPostDataSchema = {
   title: "BlogPostData",
 } as const;
 
+export const Body_login_access_token_login_access_token_postSchema = {
+  properties: {
+    grant_type: {
+      anyOf: [
+        {
+          type: "string",
+          pattern: "^password$",
+        },
+        {
+          type: "null",
+        },
+      ],
+      title: "Grant Type",
+    },
+    username: {
+      type: "string",
+      title: "Username",
+    },
+    password: {
+      type: "string",
+      title: "Password",
+    },
+    scope: {
+      type: "string",
+      title: "Scope",
+      default: "",
+    },
+    client_id: {
+      anyOf: [
+        {
+          type: "string",
+        },
+        {
+          type: "null",
+        },
+      ],
+      title: "Client Id",
+    },
+    client_secret: {
+      anyOf: [
+        {
+          type: "string",
+        },
+        {
+          type: "null",
+        },
+      ],
+      title: "Client Secret",
+    },
+  },
+  type: "object",
+  required: ["username", "password"],
+  title: "Body_login_access_token_login_access_token_post",
+} as const;
+
 export const HTTPValidationErrorSchema = {
   properties: {
     detail: {
@@ -57,6 +112,92 @@ export const HTTPValidationErrorSchema = {
   },
   type: "object",
   title: "HTTPValidationError",
+} as const;
+
+export const TokenSchema = {
+  properties: {
+    access_token: {
+      type: "string",
+      title: "Access Token",
+    },
+    token_type: {
+      type: "string",
+      title: "Token Type",
+      default: "bearer",
+    },
+  },
+  type: "object",
+  required: ["access_token"],
+  title: "Token",
+} as const;
+
+export const UserSchema = {
+  properties: {
+    email: {
+      type: "string",
+      format: "email",
+      title: "Email",
+    },
+    is_active: {
+      type: "boolean",
+      title: "Is Active",
+      default: true,
+    },
+    is_superuser: {
+      type: "boolean",
+      title: "Is Superuser",
+      default: false,
+    },
+    full_name: {
+      type: "string",
+      title: "Full Name",
+      default: "",
+    },
+    id: {
+      type: "string",
+      format: "uuid",
+      title: "Id",
+    },
+    hashed_password: {
+      type: "string",
+      title: "Hashed Password",
+    },
+  },
+  type: "object",
+  required: ["email", "id", "hashed_password"],
+  title: "User",
+} as const;
+
+export const UserCreateSchema = {
+  properties: {
+    email: {
+      type: "string",
+      format: "email",
+      title: "Email",
+    },
+    is_active: {
+      type: "boolean",
+      title: "Is Active",
+      default: true,
+    },
+    is_superuser: {
+      type: "boolean",
+      title: "Is Superuser",
+      default: false,
+    },
+    full_name: {
+      type: "string",
+      title: "Full Name",
+      default: "",
+    },
+    password: {
+      type: "string",
+      title: "Password",
+    },
+  },
+  type: "object",
+  required: ["email", "password"],
+  title: "UserCreate",
 } as const;
 
 export const ValidationErrorSchema = {

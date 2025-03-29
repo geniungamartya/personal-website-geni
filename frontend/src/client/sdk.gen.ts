@@ -14,6 +14,18 @@ import type {
   DeleteBlogPostBlogBlogIdDeleteData,
   DeleteBlogPostBlogBlogIdDeleteResponse,
   HealthCheckHealthGetResponse,
+  LoginAccessTokenLoginAccessTokenPostData,
+  LoginAccessTokenLoginAccessTokenPostResponse,
+  ReadUsersMeUsersMeGetResponse,
+  GetUsersUsersGetResponse,
+  GetUserUsersUserIdGetData,
+  GetUserUsersUserIdGetResponse,
+  DeleteUserUsersUserIdDeleteData,
+  DeleteUserUsersUserIdDeleteResponse,
+  RegisterUserUsersRegisterPostData,
+  RegisterUserUsersRegisterPostResponse,
+  UpdateUserRoleUsersUserIdRolePatchData,
+  UpdateUserRoleUsersUserIdRolePatchResponse,
 } from "./types.gen";
 
 export class BlogService {
@@ -135,6 +147,152 @@ export class DefaultService {
     return __request(OpenAPI, {
       method: "GET",
       url: "/health",
+    });
+  }
+}
+
+export class LoginService {
+  /**
+   * Login Access Token
+   * OAuth2 compatible token login, get an access token for future requests
+   * @param data The data for the request.
+   * @param data.formData
+   * @returns Token Successful Response
+   * @throws ApiError
+   */
+  public static loginAccessTokenLoginAccessTokenPost(
+    data: LoginAccessTokenLoginAccessTokenPostData,
+  ): CancelablePromise<LoginAccessTokenLoginAccessTokenPostResponse> {
+    return __request(OpenAPI, {
+      method: "POST",
+      url: "/login/access-token",
+      formData: data.formData,
+      mediaType: "application/x-www-form-urlencoded",
+      errors: {
+        422: "Validation Error",
+      },
+    });
+  }
+}
+
+export class UsersService {
+  /**
+   * Read Users Me
+   * @returns User Successful Response
+   * @throws ApiError
+   */
+  public static readUsersMeUsersMeGet(): CancelablePromise<ReadUsersMeUsersMeGetResponse> {
+    return __request(OpenAPI, {
+      method: "GET",
+      url: "/users/me",
+    });
+  }
+
+  /**
+   * Get Users
+   * Retrieve all users.
+   * @returns User Successful Response
+   * @throws ApiError
+   */
+  public static getUsersUsersGet(): CancelablePromise<GetUsersUsersGetResponse> {
+    return __request(OpenAPI, {
+      method: "GET",
+      url: "/users/",
+    });
+  }
+
+  /**
+   * Get User
+   * Retrieve a user by ID.
+   * @param data The data for the request.
+   * @param data.userId
+   * @returns User Successful Response
+   * @throws ApiError
+   */
+  public static getUserUsersUserIdGet(
+    data: GetUserUsersUserIdGetData,
+  ): CancelablePromise<GetUserUsersUserIdGetResponse> {
+    return __request(OpenAPI, {
+      method: "GET",
+      url: "/users/{user_id}",
+      path: {
+        user_id: data.userId,
+      },
+      errors: {
+        422: "Validation Error",
+      },
+    });
+  }
+
+  /**
+   * Delete User
+   * Delete a user.
+   * @param data The data for the request.
+   * @param data.userId
+   * @returns unknown Successful Response
+   * @throws ApiError
+   */
+  public static deleteUserUsersUserIdDelete(
+    data: DeleteUserUsersUserIdDeleteData,
+  ): CancelablePromise<DeleteUserUsersUserIdDeleteResponse> {
+    return __request(OpenAPI, {
+      method: "DELETE",
+      url: "/users/{user_id}",
+      path: {
+        user_id: data.userId,
+      },
+      errors: {
+        422: "Validation Error",
+      },
+    });
+  }
+
+  /**
+   * Register User
+   * Register a new user.
+   * @param data The data for the request.
+   * @param data.requestBody
+   * @returns User Successful Response
+   * @throws ApiError
+   */
+  public static registerUserUsersRegisterPost(
+    data: RegisterUserUsersRegisterPostData,
+  ): CancelablePromise<RegisterUserUsersRegisterPostResponse> {
+    return __request(OpenAPI, {
+      method: "POST",
+      url: "/users/register",
+      body: data.requestBody,
+      mediaType: "application/json",
+      errors: {
+        422: "Validation Error",
+      },
+    });
+  }
+
+  /**
+   * Update User Role
+   * Update user role.
+   * @param data The data for the request.
+   * @param data.userId
+   * @param data.isSuperuser
+   * @returns unknown Successful Response
+   * @throws ApiError
+   */
+  public static updateUserRoleUsersUserIdRolePatch(
+    data: UpdateUserRoleUsersUserIdRolePatchData,
+  ): CancelablePromise<UpdateUserRoleUsersUserIdRolePatchResponse> {
+    return __request(OpenAPI, {
+      method: "PATCH",
+      url: "/users/{user_id}/role",
+      path: {
+        user_id: data.userId,
+      },
+      query: {
+        is_superuser: data.isSuperuser,
+      },
+      errors: {
+        422: "Validation Error",
+      },
     });
   }
 }
