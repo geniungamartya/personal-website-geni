@@ -3,8 +3,9 @@ from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException
 
-from app.controller.deps import get_blog_service
+from app.controller.deps import get_blog_service, get_current_user
 from app.model.blog_post import BlogPost, BlogPostData
+from app.model.user import User
 from app.service.blog_service import BlogService
 
 router = APIRouter(prefix="/blog", tags=["blog"])
@@ -12,7 +13,9 @@ router = APIRouter(prefix="/blog", tags=["blog"])
 
 @router.post("/", response_model=BlogPost)
 def create_blog_post(
-    blog_data: BlogPostData, service: BlogService = Depends(get_blog_service)
+    blog_data: BlogPostData,
+    service: BlogService = Depends(get_blog_service),
+    current_user: User = Depends(get_current_user),
 ):
     """Create a new blog post."""
     blog = service.create_blog_post(blog_data)
@@ -39,6 +42,7 @@ def update_blog_post(
     blog_id: UUID,
     blog_data: BlogPostData,
     service: BlogService = Depends(get_blog_service),
+    current_user: User = Depends(get_current_user),
 ):
     """Update an existing blog post."""
     blog = service.update_blog_post(blog_id, blog_data)
@@ -46,7 +50,11 @@ def update_blog_post(
 
 
 @router.delete("/{blog_id}")
-def delete_blog_post(blog_id: str, service: BlogService = Depends(get_blog_service)):
+def delete_blog_post(
+    blog_id: str,
+    service: BlogService = Depends(get_blog_service),
+    current_user: User = Depends(get_current_user),
+):
     """Delete a blog post by ID."""
     service.delete_blog_post(blog_id)
     return {"message": "Blog post deleted successfully"}
