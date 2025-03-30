@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { UsersService } from "../client";
-import { Plus, Trash, Edit2 } from "lucide-react"; // Lucide Icons
+import { Plus, Trash } from "lucide-react"; // Lucide Icons
 import { AnimatePresence, motion } from "framer-motion";
 import * as Toast from "@radix-ui/react-toast";
 
