@@ -1,9 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import fjGallery from "flickr-justified-gallery";
-import { GalleryFeed, Media } from "../components/gallery-feed";
+import { GalleryFeed, Media } from "../../components/gallery-feed";
 
-export const Route = createFileRoute("/photo-video")({
+export const Route = createFileRoute("/_layout/photo-video")({
   component: RouteComponent,
 });
 

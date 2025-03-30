@@ -1,3 +1,5 @@
+ 
+
 // @ts-nocheck
 
 // noinspection JSUnusedGlobalSymbols
@@ -9,224 +11,348 @@
 // Import Routes
 
 import { Route as rootRoute } from "./routes/__root";
-import { Route as PlaygroundImport } from "./routes/playground";
-import { Route as PhotoVideoImport } from "./routes/photo-video";
-import { Route as BlogImport } from "./routes/blog";
-import { Route as IndexImport } from "./routes/index";
-import { Route as BlogIndexImport } from "./routes/blog.index";
-import { Route as BlogEditorImport } from "./routes/blog.editor";
-import { Route as BlogDashboardImport } from "./routes/blog.dashboard";
-import { Route as BlogSlugImport } from "./routes/blog.$slug";
+import { Route as LoginImport } from "./routes/login";
+import { Route as AdminImport } from "./routes/admin";
+import { Route as LayoutImport } from "./routes/_layout";
+import { Route as AdminIndexImport } from "./routes/admin.index";
+import { Route as LayoutIndexImport } from "./routes/_layout/index";
+import { Route as AdminUsersImport } from "./routes/admin.users";
+import { Route as AdminBlogImport } from "./routes/admin.blog";
+import { Route as LayoutPlaygroundImport } from "./routes/_layout/playground";
+import { Route as LayoutPhotoVideoImport } from "./routes/_layout/photo-video";
+import { Route as LayoutBlogImport } from "./routes/_layout/blog";
+import { Route as LayoutBlogIndexImport } from "./routes/_layout/blog.index";
+import { Route as LayoutBlogEditorImport } from "./routes/_layout/blog.editor";
+import { Route as LayoutBlogSlugImport } from "./routes/_layout/blog.$slug";
 
 // Create/Update Routes
 
-const PlaygroundRoute = PlaygroundImport.update({
-  id: "/playground",
-  path: "/playground",
+const LoginRoute = LoginImport.update({
+  id: "/login",
+  path: "/login",
   getParentRoute: () => rootRoute,
 } as any);
 
-const PhotoVideoRoute = PhotoVideoImport.update({
-  id: "/photo-video",
-  path: "/photo-video",
+const AdminRoute = AdminImport.update({
+  id: "/admin",
+  path: "/admin",
   getParentRoute: () => rootRoute,
 } as any);
 
-const BlogRoute = BlogImport.update({
+const LayoutRoute = LayoutImport.update({
+  id: "/_layout",
+  getParentRoute: () => rootRoute,
+} as any);
+
+const AdminIndexRoute = AdminIndexImport.update({
+  id: "/",
+  path: "/",
+  getParentRoute: () => AdminRoute,
+} as any);
+
+const LayoutIndexRoute = LayoutIndexImport.update({
+  id: "/",
+  path: "/",
+  getParentRoute: () => LayoutRoute,
+} as any);
+
+const AdminUsersRoute = AdminUsersImport.update({
+  id: "/users",
+  path: "/users",
+  getParentRoute: () => AdminRoute,
+} as any);
+
+const AdminBlogRoute = AdminBlogImport.update({
   id: "/blog",
   path: "/blog",
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => AdminRoute,
 } as any);
 
-const IndexRoute = IndexImport.update({
+const LayoutPlaygroundRoute = LayoutPlaygroundImport.update({
+  id: "/playground",
+  path: "/playground",
+  getParentRoute: () => LayoutRoute,
+} as any);
+
+const LayoutPhotoVideoRoute = LayoutPhotoVideoImport.update({
+  id: "/photo-video",
+  path: "/photo-video",
+  getParentRoute: () => LayoutRoute,
+} as any);
+
+const LayoutBlogRoute = LayoutBlogImport.update({
+  id: "/blog",
+  path: "/blog",
+  getParentRoute: () => LayoutRoute,
+} as any);
+
+const LayoutBlogIndexRoute = LayoutBlogIndexImport.update({
   id: "/",
   path: "/",
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => LayoutBlogRoute,
 } as any);
 
-const BlogIndexRoute = BlogIndexImport.update({
-  id: "/",
-  path: "/",
-  getParentRoute: () => BlogRoute,
-} as any);
-
-const BlogEditorRoute = BlogEditorImport.update({
+const LayoutBlogEditorRoute = LayoutBlogEditorImport.update({
   id: "/editor",
   path: "/editor",
-  getParentRoute: () => BlogRoute,
+  getParentRoute: () => LayoutBlogRoute,
 } as any);
 
-const BlogDashboardRoute = BlogDashboardImport.update({
-  id: "/dashboard",
-  path: "/dashboard",
-  getParentRoute: () => BlogRoute,
-} as any);
-
-const BlogSlugRoute = BlogSlugImport.update({
+const LayoutBlogSlugRoute = LayoutBlogSlugImport.update({
   id: "/$slug",
   path: "/$slug",
-  getParentRoute: () => BlogRoute,
+  getParentRoute: () => LayoutBlogRoute,
 } as any);
 
 // Populate the FileRoutesByPath interface
 
 declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
-    "/": {
-      id: "/";
-      path: "/";
-      fullPath: "/";
-      preLoaderRoute: typeof IndexImport;
+    "/_layout": {
+      id: "/_layout";
+      path: "";
+      fullPath: "";
+      preLoaderRoute: typeof LayoutImport;
       parentRoute: typeof rootRoute;
     };
-    "/blog": {
-      id: "/blog";
+    "/admin": {
+      id: "/admin";
+      path: "/admin";
+      fullPath: "/admin";
+      preLoaderRoute: typeof AdminImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/login": {
+      id: "/login";
+      path: "/login";
+      fullPath: "/login";
+      preLoaderRoute: typeof LoginImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/_layout/blog": {
+      id: "/_layout/blog";
       path: "/blog";
       fullPath: "/blog";
-      preLoaderRoute: typeof BlogImport;
-      parentRoute: typeof rootRoute;
+      preLoaderRoute: typeof LayoutBlogImport;
+      parentRoute: typeof LayoutImport;
     };
-    "/photo-video": {
-      id: "/photo-video";
+    "/_layout/photo-video": {
+      id: "/_layout/photo-video";
       path: "/photo-video";
       fullPath: "/photo-video";
-      preLoaderRoute: typeof PhotoVideoImport;
-      parentRoute: typeof rootRoute;
+      preLoaderRoute: typeof LayoutPhotoVideoImport;
+      parentRoute: typeof LayoutImport;
     };
-    "/playground": {
-      id: "/playground";
+    "/_layout/playground": {
+      id: "/_layout/playground";
       path: "/playground";
       fullPath: "/playground";
-      preLoaderRoute: typeof PlaygroundImport;
-      parentRoute: typeof rootRoute;
+      preLoaderRoute: typeof LayoutPlaygroundImport;
+      parentRoute: typeof LayoutImport;
     };
-    "/blog/$slug": {
-      id: "/blog/$slug";
+    "/admin/blog": {
+      id: "/admin/blog";
+      path: "/blog";
+      fullPath: "/admin/blog";
+      preLoaderRoute: typeof AdminBlogImport;
+      parentRoute: typeof AdminImport;
+    };
+    "/admin/users": {
+      id: "/admin/users";
+      path: "/users";
+      fullPath: "/admin/users";
+      preLoaderRoute: typeof AdminUsersImport;
+      parentRoute: typeof AdminImport;
+    };
+    "/_layout/": {
+      id: "/_layout/";
+      path: "/";
+      fullPath: "/";
+      preLoaderRoute: typeof LayoutIndexImport;
+      parentRoute: typeof LayoutImport;
+    };
+    "/admin/": {
+      id: "/admin/";
+      path: "/";
+      fullPath: "/admin/";
+      preLoaderRoute: typeof AdminIndexImport;
+      parentRoute: typeof AdminImport;
+    };
+    "/_layout/blog/$slug": {
+      id: "/_layout/blog/$slug";
       path: "/$slug";
       fullPath: "/blog/$slug";
-      preLoaderRoute: typeof BlogSlugImport;
-      parentRoute: typeof BlogImport;
+      preLoaderRoute: typeof LayoutBlogSlugImport;
+      parentRoute: typeof LayoutBlogImport;
     };
-    "/blog/dashboard": {
-      id: "/blog/dashboard";
-      path: "/dashboard";
-      fullPath: "/blog/dashboard";
-      preLoaderRoute: typeof BlogDashboardImport;
-      parentRoute: typeof BlogImport;
-    };
-    "/blog/editor": {
-      id: "/blog/editor";
+    "/_layout/blog/editor": {
+      id: "/_layout/blog/editor";
       path: "/editor";
       fullPath: "/blog/editor";
-      preLoaderRoute: typeof BlogEditorImport;
-      parentRoute: typeof BlogImport;
+      preLoaderRoute: typeof LayoutBlogEditorImport;
+      parentRoute: typeof LayoutBlogImport;
     };
-    "/blog/": {
-      id: "/blog/";
+    "/_layout/blog/": {
+      id: "/_layout/blog/";
       path: "/";
       fullPath: "/blog/";
-      preLoaderRoute: typeof BlogIndexImport;
-      parentRoute: typeof BlogImport;
+      preLoaderRoute: typeof LayoutBlogIndexImport;
+      parentRoute: typeof LayoutBlogImport;
     };
   }
 }
 
 // Create and export the route tree
 
-interface BlogRouteChildren {
-  BlogSlugRoute: typeof BlogSlugRoute;
-  BlogDashboardRoute: typeof BlogDashboardRoute;
-  BlogEditorRoute: typeof BlogEditorRoute;
-  BlogIndexRoute: typeof BlogIndexRoute;
+interface LayoutBlogRouteChildren {
+  LayoutBlogSlugRoute: typeof LayoutBlogSlugRoute;
+  LayoutBlogEditorRoute: typeof LayoutBlogEditorRoute;
+  LayoutBlogIndexRoute: typeof LayoutBlogIndexRoute;
 }
 
-const BlogRouteChildren: BlogRouteChildren = {
-  BlogSlugRoute: BlogSlugRoute,
-  BlogDashboardRoute: BlogDashboardRoute,
-  BlogEditorRoute: BlogEditorRoute,
-  BlogIndexRoute: BlogIndexRoute,
+const LayoutBlogRouteChildren: LayoutBlogRouteChildren = {
+  LayoutBlogSlugRoute: LayoutBlogSlugRoute,
+  LayoutBlogEditorRoute: LayoutBlogEditorRoute,
+  LayoutBlogIndexRoute: LayoutBlogIndexRoute,
 };
 
-const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren);
+const LayoutBlogRouteWithChildren = LayoutBlogRoute._addFileChildren(
+  LayoutBlogRouteChildren,
+);
+
+interface LayoutRouteChildren {
+  LayoutBlogRoute: typeof LayoutBlogRouteWithChildren;
+  LayoutPhotoVideoRoute: typeof LayoutPhotoVideoRoute;
+  LayoutPlaygroundRoute: typeof LayoutPlaygroundRoute;
+  LayoutIndexRoute: typeof LayoutIndexRoute;
+}
+
+const LayoutRouteChildren: LayoutRouteChildren = {
+  LayoutBlogRoute: LayoutBlogRouteWithChildren,
+  LayoutPhotoVideoRoute: LayoutPhotoVideoRoute,
+  LayoutPlaygroundRoute: LayoutPlaygroundRoute,
+  LayoutIndexRoute: LayoutIndexRoute,
+};
+
+const LayoutRouteWithChildren =
+  LayoutRoute._addFileChildren(LayoutRouteChildren);
+
+interface AdminRouteChildren {
+  AdminBlogRoute: typeof AdminBlogRoute;
+  AdminUsersRoute: typeof AdminUsersRoute;
+  AdminIndexRoute: typeof AdminIndexRoute;
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminBlogRoute: AdminBlogRoute,
+  AdminUsersRoute: AdminUsersRoute,
+  AdminIndexRoute: AdminIndexRoute,
+};
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren);
 
 export interface FileRoutesByFullPath {
-  "/": typeof IndexRoute;
-  "/blog": typeof BlogRouteWithChildren;
-  "/photo-video": typeof PhotoVideoRoute;
-  "/playground": typeof PlaygroundRoute;
-  "/blog/$slug": typeof BlogSlugRoute;
-  "/blog/dashboard": typeof BlogDashboardRoute;
-  "/blog/editor": typeof BlogEditorRoute;
-  "/blog/": typeof BlogIndexRoute;
+  "": typeof LayoutRouteWithChildren;
+  "/admin": typeof AdminRouteWithChildren;
+  "/login": typeof LoginRoute;
+  "/blog": typeof LayoutBlogRouteWithChildren;
+  "/photo-video": typeof LayoutPhotoVideoRoute;
+  "/playground": typeof LayoutPlaygroundRoute;
+  "/admin/blog": typeof AdminBlogRoute;
+  "/admin/users": typeof AdminUsersRoute;
+  "/": typeof LayoutIndexRoute;
+  "/admin/": typeof AdminIndexRoute;
+  "/blog/$slug": typeof LayoutBlogSlugRoute;
+  "/blog/editor": typeof LayoutBlogEditorRoute;
+  "/blog/": typeof LayoutBlogIndexRoute;
 }
 
 export interface FileRoutesByTo {
-  "/": typeof IndexRoute;
-  "/photo-video": typeof PhotoVideoRoute;
-  "/playground": typeof PlaygroundRoute;
-  "/blog/$slug": typeof BlogSlugRoute;
-  "/blog/dashboard": typeof BlogDashboardRoute;
-  "/blog/editor": typeof BlogEditorRoute;
-  "/blog": typeof BlogIndexRoute;
+  "/login": typeof LoginRoute;
+  "/photo-video": typeof LayoutPhotoVideoRoute;
+  "/playground": typeof LayoutPlaygroundRoute;
+  "/admin/blog": typeof AdminBlogRoute;
+  "/admin/users": typeof AdminUsersRoute;
+  "/": typeof LayoutIndexRoute;
+  "/admin": typeof AdminIndexRoute;
+  "/blog/$slug": typeof LayoutBlogSlugRoute;
+  "/blog/editor": typeof LayoutBlogEditorRoute;
+  "/blog": typeof LayoutBlogIndexRoute;
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute;
-  "/": typeof IndexRoute;
-  "/blog": typeof BlogRouteWithChildren;
-  "/photo-video": typeof PhotoVideoRoute;
-  "/playground": typeof PlaygroundRoute;
-  "/blog/$slug": typeof BlogSlugRoute;
-  "/blog/dashboard": typeof BlogDashboardRoute;
-  "/blog/editor": typeof BlogEditorRoute;
-  "/blog/": typeof BlogIndexRoute;
+  "/_layout": typeof LayoutRouteWithChildren;
+  "/admin": typeof AdminRouteWithChildren;
+  "/login": typeof LoginRoute;
+  "/_layout/blog": typeof LayoutBlogRouteWithChildren;
+  "/_layout/photo-video": typeof LayoutPhotoVideoRoute;
+  "/_layout/playground": typeof LayoutPlaygroundRoute;
+  "/admin/blog": typeof AdminBlogRoute;
+  "/admin/users": typeof AdminUsersRoute;
+  "/_layout/": typeof LayoutIndexRoute;
+  "/admin/": typeof AdminIndexRoute;
+  "/_layout/blog/$slug": typeof LayoutBlogSlugRoute;
+  "/_layout/blog/editor": typeof LayoutBlogEditorRoute;
+  "/_layout/blog/": typeof LayoutBlogIndexRoute;
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath;
   fullPaths:
-    | "/"
+    | ""
+    | "/admin"
+    | "/login"
     | "/blog"
     | "/photo-video"
     | "/playground"
+    | "/admin/blog"
+    | "/admin/users"
+    | "/"
+    | "/admin/"
     | "/blog/$slug"
-    | "/blog/dashboard"
     | "/blog/editor"
     | "/blog/";
   fileRoutesByTo: FileRoutesByTo;
   to:
-    | "/"
+    | "/login"
     | "/photo-video"
     | "/playground"
+    | "/admin/blog"
+    | "/admin/users"
+    | "/"
+    | "/admin"
     | "/blog/$slug"
-    | "/blog/dashboard"
     | "/blog/editor"
     | "/blog";
   id:
     | "__root__"
-    | "/"
-    | "/blog"
-    | "/photo-video"
-    | "/playground"
-    | "/blog/$slug"
-    | "/blog/dashboard"
-    | "/blog/editor"
-    | "/blog/";
+    | "/_layout"
+    | "/admin"
+    | "/login"
+    | "/_layout/blog"
+    | "/_layout/photo-video"
+    | "/_layout/playground"
+    | "/admin/blog"
+    | "/admin/users"
+    | "/_layout/"
+    | "/admin/"
+    | "/_layout/blog/$slug"
+    | "/_layout/blog/editor"
+    | "/_layout/blog/";
   fileRoutesById: FileRoutesById;
 }
 
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute;
-  BlogRoute: typeof BlogRouteWithChildren;
-  PhotoVideoRoute: typeof PhotoVideoRoute;
-  PlaygroundRoute: typeof PlaygroundRoute;
+  LayoutRoute: typeof LayoutRouteWithChildren;
+  AdminRoute: typeof AdminRouteWithChildren;
+  LoginRoute: typeof LoginRoute;
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  BlogRoute: BlogRouteWithChildren,
-  PhotoVideoRoute: PhotoVideoRoute,
-  PlaygroundRoute: PlaygroundRoute,
+  LayoutRoute: LayoutRouteWithChildren,
+  AdminRoute: AdminRouteWithChildren,
+  LoginRoute: LoginRoute,
 };
 
 export const routeTree = rootRoute
@@ -239,45 +365,75 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/",
-        "/blog",
-        "/photo-video",
-        "/playground"
+        "/_layout",
+        "/admin",
+        "/login"
       ]
     },
-    "/": {
-      "filePath": "index.tsx"
-    },
-    "/blog": {
-      "filePath": "blog.tsx",
+    "/_layout": {
+      "filePath": "_layout.tsx",
       "children": [
-        "/blog/$slug",
-        "/blog/dashboard",
-        "/blog/editor",
-        "/blog/"
+        "/_layout/blog",
+        "/_layout/photo-video",
+        "/_layout/playground",
+        "/_layout/"
       ]
     },
-    "/photo-video": {
-      "filePath": "photo-video.tsx"
+    "/admin": {
+      "filePath": "admin.tsx",
+      "children": [
+        "/admin/blog",
+        "/admin/users",
+        "/admin/"
+      ]
     },
-    "/playground": {
-      "filePath": "playground.tsx"
+    "/login": {
+      "filePath": "login.tsx"
     },
-    "/blog/$slug": {
-      "filePath": "blog.$slug.tsx",
-      "parent": "/blog"
+    "/_layout/blog": {
+      "filePath": "_layout/blog.tsx",
+      "parent": "/_layout",
+      "children": [
+        "/_layout/blog/$slug",
+        "/_layout/blog/editor",
+        "/_layout/blog/"
+      ]
     },
-    "/blog/dashboard": {
-      "filePath": "blog.dashboard.tsx",
-      "parent": "/blog"
+    "/_layout/photo-video": {
+      "filePath": "_layout/photo-video.tsx",
+      "parent": "/_layout"
     },
-    "/blog/editor": {
-      "filePath": "blog.editor.tsx",
-      "parent": "/blog"
+    "/_layout/playground": {
+      "filePath": "_layout/playground.tsx",
+      "parent": "/_layout"
     },
-    "/blog/": {
-      "filePath": "blog.index.tsx",
-      "parent": "/blog"
+    "/admin/blog": {
+      "filePath": "admin.blog.tsx",
+      "parent": "/admin"
+    },
+    "/admin/users": {
+      "filePath": "admin.users.tsx",
+      "parent": "/admin"
+    },
+    "/_layout/": {
+      "filePath": "_layout/index.tsx",
+      "parent": "/_layout"
+    },
+    "/admin/": {
+      "filePath": "admin.index.tsx",
+      "parent": "/admin"
+    },
+    "/_layout/blog/$slug": {
+      "filePath": "_layout/blog.$slug.tsx",
+      "parent": "/_layout/blog"
+    },
+    "/_layout/blog/editor": {
+      "filePath": "_layout/blog.editor.tsx",
+      "parent": "/_layout/blog"
+    },
+    "/_layout/blog/": {
+      "filePath": "_layout/blog.index.tsx",
+      "parent": "/_layout/blog"
     }
   }
 }

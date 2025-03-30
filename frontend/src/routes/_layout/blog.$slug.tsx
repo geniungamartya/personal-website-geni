@@ -1,11 +1,11 @@
 import { createFileRoute, useParams } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Post, processPosts } from "../modules/blog-post-preprocess";
+import { Post, processPosts } from "../../modules/blog-post-preprocess";
 import MDEditor from "@uiw/react-md-editor";
-import { formatDateString } from "../utils/utils";
-import NotFound from "../components/not-found";
+import { formatDateString } from "../../utils/utils";
+import NotFound from "../../components/not-found";
 
-export const Route = createFileRoute("/blog/$slug")({
+export const Route = createFileRoute("/_layout/blog/$slug")({
   component: RouteComponent,
 });
 

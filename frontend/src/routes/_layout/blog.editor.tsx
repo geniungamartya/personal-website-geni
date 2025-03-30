@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import MDEditor from "@uiw/react-md-editor";
 import { useState } from "react";
 
-export const Route = createFileRoute("/blog/editor")({
+export const Route = createFileRoute("/_layout/blog/editor")({
   component: RouteComponent,
 });
 

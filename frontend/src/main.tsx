@@ -4,15 +4,36 @@ import { RouterProvider, createRouter } from "@tanstack/react-router";
 
 // Import the generated route tree
 import { routeTree } from "./routeTree.gen";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { OpenAPI } from "./client";
+import {
+  MutationCache,
+  QueryCache,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
+import { ApiError, OpenAPI } from "./client";
 
 OpenAPI.BASE = import.meta.env.VITE_API_URL;
+OpenAPI.TOKEN = async () => {
+  return localStorage.getItem("access_token") || "";
+};
+
+const handleUnauthorizedApiError = (error: Error) => {
+  if (error instanceof ApiError && [401, 403].includes(error.status)) {
+    localStorage.removeItem("access_token");
+    window.location.href = "/login";
+  }
+};
+const queryClient = new QueryClient({
+  queryCache: new QueryCache({
+    onError: handleUnauthorizedApiError,
+  }),
+  mutationCache: new MutationCache({
+    onError: handleUnauthorizedApiError,
+  }),
+});
 
 // Create a new router instance
 const router = createRouter({ routeTree });
-
-const queryClient = new QueryClient();
 
 // Register the router instance for type safety
 declare module "@tanstack/react-router" {

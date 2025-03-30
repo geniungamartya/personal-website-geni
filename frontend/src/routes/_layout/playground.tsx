@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/playground")({
+export const Route = createFileRoute("/_layout/playground")({
   component: RouteComponent,
 });
 

@@ -1,10 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { formatDateString } from "../utils/utils";
+import { formatDateString } from "../../utils/utils";
 import { useEffect, useState } from "react";
-import { Post, processPosts } from "../modules/blog-post-preprocess";
-import { ArrowIcon } from "../components/footer";
+import { Post, processPosts } from "../../modules/blog-post-preprocess";
+import { ArrowIcon } from "../../components/footer";
 
-export const Route = createFileRoute("/blog/")({
+export const Route = createFileRoute("/_layout/blog/")({
   component: RouteComponent,
 });
 
