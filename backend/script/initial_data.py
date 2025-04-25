@@ -19,6 +19,7 @@ def main() -> None:
                 email=user_config.EMAIL,
                 password=user_config.PASSWORD,
                 is_superuser=True,
+                full_name=user_config.NAME,
             )
         )
         logger.info(f"Created first user: {first_user.email}")

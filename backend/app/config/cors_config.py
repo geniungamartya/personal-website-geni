@@ -1,14 +1,11 @@
-from pydantic import EmailStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
-class UserConfig(BaseSettings):
+class CorsSetting(BaseSettings):
     model_config = SettingsConfigDict(
         env_file=".env",
-        env_prefix="FIRST_SUPERUSER_",
+        env_prefix="CORS_",
         extra="allow",
     )
 
-    EMAIL: EmailStr
-    PASSWORD: str
-    NAME: str
+    host: list[str]

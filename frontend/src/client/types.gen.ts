@@ -4,6 +4,7 @@ export type BlogPost = {
   title: string;
   slug: string;
   content: string;
+  date: string;
   id: string;
 };
 
@@ -11,6 +12,7 @@ export type BlogPostData = {
   title: string;
   slug: string;
   content: string;
+  date: string;
 };
 
 export type Body_login_access_token_login_access_token_post = {

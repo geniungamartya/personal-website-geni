@@ -7,6 +7,7 @@ class BlogPostData(BaseModel):
     title: str
     slug: str
     content: str
+    date: str
 
 
 class BlogPost(BlogPostData):

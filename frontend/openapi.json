@@ -393,20 +393,22 @@
           "title": { "type": "string", "title": "Title" },
           "slug": { "type": "string", "title": "Slug" },
           "content": { "type": "string", "title": "Content" },
+          "date": { "type": "string", "title": "Date" },
           "id": { "type": "string", "format": "uuid", "title": "Id" }
         },
         "type": "object",
-        "required": ["title", "slug", "content", "id"],
+        "required": ["title", "slug", "content", "date", "id"],
         "title": "BlogPost"
       },
       "BlogPostData": {
         "properties": {
           "title": { "type": "string", "title": "Title" },
           "slug": { "type": "string", "title": "Slug" },
-          "content": { "type": "string", "title": "Content" }
+          "content": { "type": "string", "title": "Content" },
+          "date": { "type": "string", "title": "Date" }
         },
         "type": "object",
-        "required": ["title", "slug", "content"],
+        "required": ["title", "slug", "content", "date"],
         "title": "BlogPostData"
       },
       "Body_login_access_token_login_access_token_post": {

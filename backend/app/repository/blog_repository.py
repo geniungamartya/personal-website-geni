@@ -10,8 +10,8 @@ class BlogRepository:
     def create_blog_post(self, blog: BlogPost) -> None:
         """Insert a new blog post into the database."""
         query = f"""
-        INSERT INTO {self.table_name} (id, title, slug, content)
-        VALUES (:id, :title, :slug, :content)
+        INSERT INTO {self.table_name} (id, title, slug, content, date)
+        VALUES (:id, :title, :slug, :content, :date)
         """
         self.database_service.execute(query, blog.model_dump(), return_type=None)
 
@@ -33,7 +33,7 @@ class BlogRepository:
         """Update a blog post."""
         query = f"""
         UPDATE {self.table_name}
-        SET title = :title, slug = :slug, content = :content
+        SET title = :title, slug = :slug, content = :content, date = :date
         WHERE id = :id
         """
         self.database_service.execute(query, blog.model_dump(), return_type=None)

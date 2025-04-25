@@ -39,6 +39,7 @@ services:
       # Make Traefik use this domain (from an environment variable) in HTTP
       - traefik.http.routers.traefik-dashboard-http.entrypoints=http
       - traefik.http.routers.traefik-dashboard-http.rule=Host(`traefik.${DOMAIN?Variable not set}`)
+    env_file: .env
 
   frontend:
     image: nginx:alpine
@@ -54,6 +55,36 @@ services:
       # Http
       - traefik.http.routers.frontend-http.rule=Host(`blog.${DOMAIN?Variable not set}`)
       - traefik.http.routers.frontend-http.entrypoints=http
+
+  backend-prestart:
+    image: personal-website-geni-backend
+    container_name: personal-website-geni-backend-prestart-container
+    build:
+      context: ./backend
+    env_file: .env
+    depends_on:
+      db:
+        condition: service_healthy
+      minio:
+        condition: service_started
+    command: bash ./prestart.sh
+
+  backend:
+    image: personal-website-geni-backend
+    container_name: personal-website-geni-backend-container
+    build:
+      context: ./backend
+    restart: always
+    env_file: .env
+    depends_on:
+      backend-prestart:
+        condition: service_completed_successfully
+    labels:
+      - traefik.enable=true
+      - traefik.http.services.backend.loadbalancer.server.port=8000
+      # Http
+      - traefik.http.routers.backend-http.rule=Host(`api.${DOMAIN?Variable not set}`)
+      - traefik.http.routers.backend-http.entrypoints=http
 
   minio:
     image: quay.io/minio/minio:RELEASE.2025-03-12T18-04-18Z-cpuv1
@@ -85,8 +116,7 @@ services:
     container_name: db
     platform: linux/amd64
     restart: always
-    env_file:
-      - .env
+    env_file: .env
     ports:
       - "15432:5432"
     healthcheck:

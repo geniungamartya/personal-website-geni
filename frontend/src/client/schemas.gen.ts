@@ -14,6 +14,10 @@ export const BlogPostSchema = {
       type: "string",
       title: "Content",
     },
+    date: {
+      type: "string",
+      title: "Date",
+    },
     id: {
       type: "string",
       format: "uuid",
@@ -21,7 +25,7 @@ export const BlogPostSchema = {
     },
   },
   type: "object",
-  required: ["title", "slug", "content", "id"],
+  required: ["title", "slug", "content", "date", "id"],
   title: "BlogPost",
 } as const;
 
@@ -39,9 +43,13 @@ export const BlogPostDataSchema = {
       type: "string",
       title: "Content",
     },
+    date: {
+      type: "string",
+      title: "Date",
+    },
   },
   type: "object",
-  required: ["title", "slug", "content"],
+  required: ["title", "slug", "content", "date"],
   title: "BlogPostData",
 } as const;
 

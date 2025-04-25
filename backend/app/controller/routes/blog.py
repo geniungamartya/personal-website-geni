@@ -37,6 +37,15 @@ def get_blog_post_by_id(blog_id: str, service: BlogService = Depends(get_blog_se
     return blog
 
 
+@router.get("/{slug}", response_model=BlogPost)
+def get_blog_post_by_slug(slug: str, service: BlogService = Depends(get_blog_service)):
+    """Retrieve a blog post by ID."""
+    blog = service.get_blog_post_by_id(slug)
+    if not blog:
+        raise HTTPException(status_code=404, detail="Blog post not found")
+    return blog
+
+
 @router.put("/{blog_id}", response_model=BlogPost)
 def update_blog_post(
     blog_id: UUID,

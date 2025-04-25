@@ -25,6 +25,7 @@ const useAuth = () => {
     queryKey: ["currentUser"],
     queryFn: UsersService.readUsersMeUsersMeGet,
     enabled: isLoggedIn(),
+    retry: false,
   });
 
   // Login function

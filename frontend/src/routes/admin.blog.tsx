@@ -15,6 +15,7 @@ export const Route = createFileRoute("/admin/blog")({
 export default function BlogDashboard() {
   const queryClient = useQueryClient();
   const [newTitle, setNewTitle] = useState("");
+  const [newDate, setNewDate] = useState("");
   const [newContent, setNewContent] = useState("");
   const [editorVisible, setEditorVisible] = useState(false);
   const [editingPostId, setEditingPostId] = useState<string | null>(null);
@@ -53,6 +54,7 @@ export default function BlogDashboard() {
   const resetEditor = () => {
     setNewTitle("");
     setNewContent("");
+    setNewDate("");
     setEditorVisible(false);
     setEditingPostId(null);
   };
@@ -66,6 +68,7 @@ export default function BlogDashboard() {
               title: newTitle,
               content: newContent,
               slug: slugify(newTitle),
+              date: newDate,
             },
           })
         : BlogService.createBlogPostBlogPost({
@@ -73,6 +76,7 @@ export default function BlogDashboard() {
               title: newTitle,
               content: newContent,
               slug: slugify(newTitle),
+              date: newDate,
             },
           }),
     onSuccess: () => {
@@ -119,6 +123,13 @@ export default function BlogDashboard() {
               placeholder="Enter title..."
               value={newTitle}
               onChange={(e) => setNewTitle(e.target.value)}
+              className="w-full p-2 text-lg font-medium border-b border-gray-300 focus:outline-none"
+            />
+            <input
+              type="text"
+              placeholder="Enter date..."
+              value={newDate}
+              onChange={(e) => setNewDate(e.target.value)}
               className="w-full p-2 text-lg font-medium border-b border-gray-300 focus:outline-none"
             />
             <MDEditor
@@ -176,6 +187,7 @@ export default function BlogDashboard() {
                     setEditingPostId(post.id);
                     setNewTitle(post.title);
                     setNewContent(post.content);
+                    setNewDate(post.date);
                     setEditorVisible(true);
                   }}
                   className="p-2 rounded-md text-yellow-500 hover:text-yellow-600 transition-all"
