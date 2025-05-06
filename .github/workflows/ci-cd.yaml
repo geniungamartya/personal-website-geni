@@ -91,7 +91,7 @@ jobs:
             EMAIL=${{ secrets.EMAIL }}
             USERNAME=${{ secrets.USERNAME }}
             PASSWORD=${{ secrets.PASSWORD }}
-            HASHED_PASSWORD=${{ secrets.HASHED_PASSWORD }}
+            HASHED_PASSWORD='${{ secrets.HASHED_PASSWORD }}'
             MINIO_ROOT_USER=${{ secrets.MINIO_ROOT_USER }}
             MINIO_ROOT_PASSWORD=${{ secrets.MINIO_ROOT_PASSWORD }}
             EOF
